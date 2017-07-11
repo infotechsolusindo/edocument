@@ -3,12 +3,13 @@
 <!--main content start-->
 <section id="main-content">
   <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Surat Masuk</h3>
+    <h3><i class="fa fa-angle-right"></i> Surat Keluar</h3>
     <div class="row mt">
       <div class="col-md-12">
         <div class="content-panel">
           <div style="overflow: scroll;max-height: 450px;">
             <table class="table table-striped table-advance table-hover">
+              <thead>
                 <tr>
                   <th width="10"></th>
                   <th> Tanggal Masuk</th>
@@ -71,8 +72,8 @@
     }$list->status;?>
                     </td>
                     <td>
-                      <a href="?url=tu/suratmasuk/ubah/<?php echo $list->iddoc; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                      <a href="?url=tu/suratmasuk/hapus/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                      <a href="?url=tu/suratkeluar/ubah/<?php echo $list->iddoc; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                      <a href="?url=tu/suratkeluar/hapus/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                     </td>
                   </tr>
                 <?php }?>
@@ -84,10 +85,10 @@
             <dir class="col-md-3 hidden-sm hidden-xs"></dir>
             <div class="col-md-6 col-xs-12 text-center">
               <a id="addBtn" href="/#tambahForm" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a>
-              <a href="?url=tu/suratmasuk" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
-              <a href="?url=tu/suratmasuk/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
-              <a href="?url=tu/suratmasuk/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
-              <a href="?url=tu/suratmasuk/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
+              <a href="?url=tu/suratkeluar" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
+              <a href="?url=tu/suratkeluar/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
+              <a href="?url=tu/suratkeluar/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
+              <a href="?url=tu/suratkeluar/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
           </footer>
         </div>
         <!-- /content-panel -->
@@ -101,14 +102,14 @@
 <!-- Modal -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <form action="?url=tu/suratmasuk/tambahSimpan" method="post" class="form-horizontal style-form">
+    <form action="?url=tu/suratkeluar/tambahSimpan" method="post" class="form-horizontal style-form">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['kategori']) ? $data['kategori'] : 2;?>">
+      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['kategori']) ? $data['kategori'] : 3;?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Tambah Surat Masuk</h4>
+          <h4 class="modal-title">Tambah Surat Keluar</h4>
         </div>
       <?php if ($data['successMessage']) {?>
       <!-- Message OK -->
@@ -177,7 +178,7 @@
 <a href="/#ubahForm" id="editbtn" data-toggle="modal"></a>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ubahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <form action="?url=tu/suratmasuk/ubahSimpan" method="post" class="form-horizontal style-form">
+    <form action="?url=tu/suratkeluar/ubahSimpan" method="post" class="form-horizontal style-form">
       <input name="iddoc" type="hidden" class="form-control" value="<?=isset($data['iddoc']) ? $data['iddoc'] : 2;?>">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
@@ -185,7 +186,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Ubah Surat Masuk</h4>
+          <h4 class="modal-title">Ubah Surat Keluar</h4>
         </div>
         <div class="modal-body">
           <div class="form-group">

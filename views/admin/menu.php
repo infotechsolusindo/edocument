@@ -111,7 +111,14 @@
  -->            <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Parent</label>
               <div class="col-sm-10">
-                <input name="parent" type="text" class="form-control" value="<?=isset($data['parent']) ? $data['parent'] : '';?>">
+                <!-- <input name="parent" type="text" class="form-control" value="<?=isset($data['parent']) ? $data['parent'] : '';?>"> -->
+                <select name="parent" id="parent">
+                <?php foreach ($data['list'] as $list) {?>
+                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->idparent) ? 'selected' : '';?>>
+                    <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
+                  </option>
+                <?php }?>
+                </select>
               </div>
             </div>
             <div class="form-group">
