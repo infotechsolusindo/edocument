@@ -36,7 +36,6 @@ class Login_Controller extends Controller {
         if(!$user || !is_object($user)) {
             session_destroy();
             return redirect(SITE_ROOT, 'auth/logout');
-            break;
         }
         $_SESSION['id'] = $user->getuserid();
         $_SESSION['privileges'] = $user->getwewenang()->gpath;
