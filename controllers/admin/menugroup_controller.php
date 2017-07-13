@@ -1,5 +1,5 @@
 <?php
-class Menu_Controller extends Controller {
+class MenuGroup_Controller extends Controller {
     private $style;
     private $script_top;
     private $script_bottom;
@@ -32,7 +32,7 @@ class Menu_Controller extends Controller {
         $list = new _MenuFactory;
         $this->Assign('list', $list->getMenuList());
         $this->getHeaderFooter();
-        $this->Load_View('admin/menu');
+        $this->Load_View('admin/menugroup');
     }
     public function tambahSimpan() {
         $error = '';
@@ -41,10 +41,10 @@ class Menu_Controller extends Controller {
             $this->Assign('errorMessage', $error);
             return $this->index();
         }
-        $this->Assign('parent', $_POST['parent']);
-        $this->Assign('name', $_POST['name']);
-        $this->Assign('url', $_POST['url']);
-        $this->Assign('icon', $_POST['icon']);
+        // $this->Assign('parent', $_POST['parent']);
+        // $this->Assign('name', $_POST['name']);
+        // $this->Assign('url', $_POST['url']);
+        // $this->Assign('icon', $_POST['icon']);
 
         if ($_POST['name'] == '') {
             logs('name kosong');

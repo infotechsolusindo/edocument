@@ -39,11 +39,12 @@ class Login_Controller extends Controller {
             break;
         }
         $_SESSION['id'] = $user->getuserid();
-        $_SESSION['privileges'] = $user->getwewenang(); //keep compability with prev version
+        $_SESSION['privileges'] = $user->getwewenang()->gpath;
         $_SESSION['nama'] = $user->getname();
         $_SESSION['time'] = time();
-        $_SESSION['wewenang'] = $user->getwewenang();
+        $_SESSION['wewenang'] = $user->getwewenang()->gpath;
         $_SESSION['path'] = $_SESSION['privileges']==''?$_SESSION['privileges'] . '/index':$_SESSION['wewenang'] . '/index';
+        logs(print_r($_SESSION));
         return redirect(SITE_ROOT, $_SESSION['path']);
     }
 }

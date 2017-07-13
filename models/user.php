@@ -10,11 +10,13 @@ class User extends Model {
     private $created;
     private $status;
     private $user;
+    private $users = [];
 
     function __construct($userid = null) {
         $classname = DB_ENGINE;
         $this->_db = new $classname;
         $this->tbname = 'users';
+        $this->_db->setTable('users');
         if ($userid) {
             $result = $this->_db->exec('SELECT * FROM ' . $this->tbname . ' WHERE userid ="' . $userid . '"');
             $user = $result[0];
@@ -42,13 +44,11 @@ class User extends Model {
     public function getname() {return $this->name;}
     public function getemail() {return $this->email;}
     public function getwewenang() {
-        switch ($this->wewenang) {
-        case 0:return 'admin';
-            break;
-        case 1:return 'operator';
-            break;
-        default:return '';
-        }
+        $result = $this->_db->Exec("select * from user_group where idgroup = $this->wewenang");
+        return $result[0];
+    }
+    public function getwewenangs() {
+        return $result = $this->_db->Exec("select * from user_group");
     }
     public function getlast_login() {return $this->last_login;}
     public function getlast_modify() {return $this->last_modify;}
@@ -60,10 +60,15 @@ class User extends Model {
     }
 
     public function getUsers($condition = []) {
-        return $this->_db->Exec('SELECT * FROM users');
+        $return = $this->_db->Exec('SELECT * FROM users');
+        foreach($return as $user){
+            $this->users[] = new self($user->userid);
+        }
+        return $this->users;
     }
 
     public function addUser($values = []) {
+        return $this->_db->create($values);
 
     }
 

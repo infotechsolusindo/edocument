@@ -10,7 +10,9 @@ class Index_Controller extends Controller {
             session_destroy();
             return redirect(SITE_ROOT, 'auth/login');
         }
+        $modules = new Module([]);
         $sidebarleft = new View();
+        $sidebarleft->Assign('modules',$modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
     }
 
@@ -73,55 +75,8 @@ class Index_Controller extends Controller {
 		';
 
         logs('Masuk index Controller');
-        // if(!checkSession()){
-        //     logs('Session tidak ditemukan');
-        //     redirect(SITE_ROOT,'auth/login');
-        // }
-        if (isset($_SESSION['path']) && ($_SESSION['path'] !== '')) {
-            redirect(SITE_ROOT, $_SESSION['path']);
-        }
         $this->getHeaderFooter();
         $this->Load_View('general/index');
     }
 
-    public function tu() {
-        $this->style = '<link rel="stylesheet" href="public/assets/css/to-do.css">';
-        $this->script_top = '';
-        $this->script_bottom = '
-		    <script src="public/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-		    <script src="public/assets/js/tasks.js" type="text/javascript"></script>
-		    <script>
-		    $(document).ready(function() {
-		        TaskList.initTaskWidget();
-		    });
-		    </script>
-		';
-
-        $this->getHeaderFooter();
-        $this->Load_View('tu/index');
-    }
-    public function about($data) {
-        $this->Load_View('about');
-        $this->Assign('heading', 'Tentang ' . APP_NAME);
-        $this->Assign('content', ' Donec id ....');
-    }
-
-    public function test() {
-        $mail = new Email;
-        $mail->to('infotech.solusindo@gmail.com');
-        $mail->subject('Testing email');
-        $mail->body('coba lagi');
-        $mail->sendemail();
-        /*
-    // var_dump($mail);
-    // $mail->sendemail();
-    // if(is_object($mail)){
-    //     echo 'ini object';
-    // }*/
-    }
-    public function cekemail() {
-        $this->Load_Model('Pool');
-        $data = $this->model->getAllNew();
-        var_dump($data);
-    }
 }

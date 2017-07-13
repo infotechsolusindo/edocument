@@ -8,10 +8,16 @@ class _Menu extends Model {
     public $status;
     public $children = [];
 
-    function __construct($id, $parent = null) {
+    function __construct($id = null, $parent = null) {
         $db = DB_ENGINE;
         parent::__construct(new $db);
-        return $this->getMenu($id, $parent);
+        if ($id) {
+            return $this->getMenu($id, $parent);
+        }
+    }
+    public function simpan($data) {
+        $this->_db->setTable('_menu');
+        return $this->_db->create($data);
     }
     private function getMenu($id = null, $parent = null) {
         $sql = "select * from _menu";

@@ -34,7 +34,7 @@ class User_Controller extends Controller {
         $list = new User;
         // var_dump($list->getUsers()); die;
         foreach ($list->getUsers() as $l) {
-            switch ($l->status) {
+            switch ($l->getStatus()) {
             case 'A':$status = "Aktif";
                 break;
             case 'B':$status = "Block";
@@ -44,17 +44,18 @@ class User_Controller extends Controller {
                 break;
             }
             $data[] = (Object) [
-                'tgl' => $l->created,
-                'userid' => $l->userid,
-                'name' => $l->name,
-                'email' => $l->email,
-                // 'last' => $l->last_login,
-                'wewenang' => $l->wewenang,
+                'tgl' => $l->getcreated(),
+                'userid' => $l->getuserid(),
+                'name' => $l->getname(),
+                'email' => $l->getemail(),
+                // 'last' => $l->getlast_login(),
+                'wewenang' => $l->getWewenang()->gname,
                 'status' => $status,
-                'statuscode' => $l->status,
+                'statuscode' => $l->getstatus(),
             ];
         }
         $this->Assign('list', $data);
+        $this->Assign('wewenang',$list->getwewenangs());
         $this->getHeaderFooter();
         $this->Load_View('admin/user');
     }
@@ -66,6 +67,33 @@ class User_Controller extends Controller {
     public function tambah() {
         $this->getHeaderFooter();
         // $this->Load_View('dokumen/tambah');
+    }
+    public function tambahSimpan() {
+        $user = new User;
+        $password = $_POST['email'];
+        $password = str_replace('@','',trim($password));
+        $password = str_replace('.','',trim($password));
+        $password = str_replace('-','',trim($password));
+        $password = str_replace('_','',trim($password));
+        $data = [
+            'userid' => $_POST['id'],
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'password' => md5($password),
+            'wewenang' => $_POST['wewenang'],
+            'status' => 'A',
+            'created' => date('Y-m-d')
+        ];
+        $result = $user->addUser($data);
+        if(empty($result)){
+            $email = new Email;
+            $email->to($_POST['email']);
+            $email->subject('Password Anda');
+            $email->body('Password: '.$password);
+            $email->sendemail();
+        }
+        $this->getHeaderFooter();
+        return $this->index();
     }
 
     private function formUbah() {
@@ -79,7 +107,7 @@ class User_Controller extends Controller {
         $this->Assign('userid', $id);
         $this->Assign('name', $data->getName());
         $this->Assign('email', $data->getEmail());
-        $this->Assign('wewenang', $data->getWewenang());
+        $this->Assign('wewenang', $data->getwewenang());
         $this->Assign('status', $data->getStatus());
         $this->index();
     }

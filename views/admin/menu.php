@@ -7,61 +7,63 @@
     <div class="row mt">
       <div class="col-md-12">
         <div class="content-panel">
-          <table class="table table-striped table-advance table-hover">
-            <hr>
-            <thead>
-              <tr>
-                <th width="10"></th>
-                <th> ID</th>
-                <!-- <th> Group</th> -->
-                <th> Parent</th>
-                <th> Name</th>
-                <th> URL</th>
-                <th> Icon</th>
-                <th> Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($data['list'] as $list) {
+            <!-- <div style="overflow:scroll;height:600px"> -->
+              <table class="table table-striped table-advance table-hover">
+                <hr>
+                <thead>
+                  <tr>
+                    <th width="10"></th>
+                    <th> ID</th>
+                    <!-- <th> Group</th> -->
+                    <th> Parent</th>
+                    <th> Name</th>
+                    <th> URL</th>
+                    <th> Icon</th>
+                    <th> Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($data['list'] as $list) {
     ?>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>
-                    <?php echo $list->id; ?>
-                  </td>
-                  <td>
-                    <?php echo $list->mparent; ?>
-                  </td>
-                  <td>
-                    <?php echo $list->mname; ?>
-                  </td>
-                  <td>
-                    <?php echo $list->url; ?>
-                  </td>
-                  <td>
-                    <?php echo $list->icon; ?>
-                  </td>
-                  <td>
-                    <?php echo $list->status; ?>
-                  </td>
-                  <td>
-                    <a href="?url=admin/kategoridokumen/ubah/<?php echo $list->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                    <a href="?url=admin/kategoridokumen/hapus/<?php echo $list->id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
-                  </td>
-                </tr>
-              <?php }?>
-            </tbody>
-          </table>
-          <footer class="site-footer">
-            <dir class="col-md-3 hidden-sm hidden-xs"></dir>
-            <div class="col-md-6 col-xs-12 text-center">
-              <a id="addBtn" href="/#tambahForm" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a>
-            </div>
-            <div class="col-md-3"></div>
-          </footer>
+                    <tr>
+                      <td>
+                        <input type="checkbox" />
+                      </td>
+                      <td>
+                        <?php echo $list->id; ?>
+                      </td>
+                      <td>
+                        <?php echo $list->mparent; ?>
+                      </td>
+                      <td>
+                        <?php echo $list->mname; ?>
+                      </td>
+                      <td>
+                        <?php echo $list->url; ?>
+                      </td>
+                      <td>
+                        <?php echo $list->icon; ?>
+                      </td>
+                      <td>
+                        <?php echo $list->status; ?>
+                      </td>
+                      <td>
+                        <a href="?url=admin/kategoridokumen/ubah/<?php echo $list->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="?url=admin/kategoridokumen/hapus/<?php echo $list->id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                      </td>
+                    </tr>
+                  <?php }?>
+                </tbody>
+              </table>
+            <!-- </div> -->
+            <footer class="site-footer">
+              <dir class="col-md-3 hidden-sm hidden-xs"></dir>
+              <div class="col-md-6 col-xs-12 text-center">
+                <a id="addBtn" href="/#tambahForm" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a>
+              </div>
+              <div class="col-md-3"></div>
+            </footer>
         </div>
         <!-- /content-panel -->
       </div>

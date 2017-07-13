@@ -14,7 +14,7 @@
                 <th width="10"></th>
                 <th> ID.User</th>
                 <th> Nama User</th>
-                <th> Departemen</th>
+                <th> Wewenang</th>
                 <th> Email</th>
                 <th> Status</th>
                 <th> Created</th>
@@ -83,6 +83,12 @@ foreach ($data['list'] as $list) {
         <div class="modal-body">
           <div class="form-panel">
             <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Login User</label>
+              <div class="col-sm-10">
+                <input name="id" type="text" class="form-control" value="<?=isset($data['name']) ? $data['name'] : '';?>">
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Nama User</label>
               <div class="col-sm-10">
                 <input name="name" type="text" class="form-control" value="<?=isset($data['name']) ? $data['name'] : '';?>">
@@ -92,9 +98,9 @@ foreach ($data['list'] as $list) {
               <label class="col-sm-2 col-sm-2 control-label">Wewenang</label>
               <div class="col-sm-10">
                 <select name="wewenang" class="form-control">
-                  <option value="1">Admin</option>
-                  <option value="2">Operator</option>
-                  <option value="3">Umum</option>
+                <?php foreach($data['wewenang'] as $w) { ?>
+                <option value="<?=$w->idgroup?>"><?=$w->gname?></option>
+                <?php } ?>
                 </select>
               </div>
             </div>

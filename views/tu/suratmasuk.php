@@ -9,6 +9,7 @@
         <div class="content-panel">
           <div style="overflow: scroll;max-height: 450px;">
             <table class="table table-striped table-advance table-hover">
+              <thead>
                 <tr>
                   <th width="10"></th>
                   <th> Tanggal Masuk</th>
