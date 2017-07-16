@@ -169,7 +169,7 @@ class Mysql implements Database {
         $data = join($arrdata, ',');
         $sql = "UPDATE $this->_table SET ";
         $sql .= "$data ";
-        $sql .= "WHERE $pk = $id";
+        $sql .= gettype($id) == 'string' ? "WHERE $pk = '$id'" : "WHERE $pk = $id";
         logs($sql);
         $result = $this->Exec($sql);
         return $result;

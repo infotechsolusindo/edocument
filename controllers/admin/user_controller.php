@@ -55,7 +55,7 @@ class User_Controller extends Controller {
             ];
         }
         $this->Assign('list', $data);
-        $this->Assign('wewenang',$list->getwewenangs());
+        $this->Assign('wewenang', $list->getwewenangs());
         $this->getHeaderFooter();
         $this->Load_View('admin/user');
     }
@@ -71,10 +71,10 @@ class User_Controller extends Controller {
     public function tambahSimpan() {
         $user = new User;
         $password = $_POST['email'];
-        $password = str_replace('@','',trim($password));
-        $password = str_replace('.','',trim($password));
-        $password = str_replace('-','',trim($password));
-        $password = str_replace('_','',trim($password));
+        $password = str_replace('@', '', trim($password));
+        $password = str_replace('.', '', trim($password));
+        $password = str_replace('-', '', trim($password));
+        $password = str_replace('_', '', trim($password));
         $data = [
             'userid' => $_POST['id'],
             'name' => $_POST['name'],
@@ -82,14 +82,14 @@ class User_Controller extends Controller {
             'password' => md5($password),
             'wewenang' => $_POST['wewenang'],
             'status' => 'A',
-            'created' => date('Y-m-d')
+            'created' => date('Y-m-d'),
         ];
         $result = $user->addUser($data);
-        if(empty($result)){
+        if (empty($result)) {
             $email = new Email;
             $email->to($_POST['email']);
             $email->subject('Password Anda');
-            $email->body('Password: '.$password);
+            $email->body('Password: ' . $password);
             $email->sendemail();
         }
         $this->getHeaderFooter();
@@ -109,6 +109,18 @@ class User_Controller extends Controller {
         $this->Assign('email', $data->getEmail());
         $this->Assign('wewenang', $data->getwewenang());
         $this->Assign('status', $data->getStatus());
+        $this->index();
+    }
+    public function ubahSimpan() {
+        $data = [
+            'userid' => $_POST['id'],
+            'name' => $_POST['name'],
+            'wewenang' => $_POST['wewenang'],
+            'email' => $_POST['email'],
+            'status' => $_POST['status'],
+        ];
+        $user = new User;
+        $user->editUser($_POST['id'], $data);
         $this->index();
     }
 

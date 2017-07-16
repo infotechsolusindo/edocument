@@ -61,7 +61,7 @@ class User extends Model {
 
     public function getUsers($condition = []) {
         $return = $this->_db->Exec('SELECT * FROM users');
-        foreach($return as $user){
+        foreach ($return as $user) {
             $this->users[] = new self($user->userid);
         }
         return $this->users;
@@ -73,7 +73,7 @@ class User extends Model {
     }
 
     public function editUser($userid, $values = []) {
-
+        return $this->_db->update($values, $userid, 'userid');
     }
 
     public function removeUser($userid) {

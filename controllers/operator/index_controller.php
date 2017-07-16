@@ -10,9 +10,9 @@ class Index_Controller extends Controller {
             session_destroy();
             return redirect(SITE_ROOT, 'auth/login');
         }
-        $modules = new Module([]);
-        $sidebarleft = new View();
-        $sidebarleft->Assign('modules',$modules->Render());
+        $modules = new Module(['menu']);
+        $sidebarleft = new View;
+        $sidebarleft->Assign('modules', $modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
     }
 
@@ -76,7 +76,9 @@ class Index_Controller extends Controller {
 
         logs('Masuk index Controller');
         $this->getHeaderFooter();
-        $this->Load_View('general/index');
+
+        $list = new Dokumen;
+        $this->Load_View('dokumen/index');
     }
 
 }
