@@ -58,7 +58,13 @@ class User extends Model {
     public function getUser($userid) {
         return new User($userid);
     }
-
+    public function getDepartemen($userid) {
+        $result = $this->_db->Exec("select departemen.* from departemen inner join user_departemen on departemen.iddepartemen = user_departemen.iddepartemen where userid = '$userid'");
+        if (empty($result)) {
+            return;
+        }
+        return $result[0];
+    }
     public function getUsers($condition = []) {
         $return = $this->_db->Exec('SELECT * FROM users');
         foreach ($return as $user) {

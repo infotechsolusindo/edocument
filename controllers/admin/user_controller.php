@@ -54,6 +54,9 @@ class User_Controller extends Controller {
                 'statuscode' => $l->getstatus(),
             ];
         }
+        $departemen = new Departemen;
+        $listdepartemen = $departemen->getDepartemen();
+        $this->Assign('listdepartemen', $listdepartemen);
         $this->Assign('list', $data);
         $this->Assign('wewenang', $list->getwewenangs());
         $this->getHeaderFooter();
@@ -103,11 +106,13 @@ class User_Controller extends Controller {
     public function ubah($id) {
         $user = new User;
         $data = $user->getUser($id);
+        $userdept = $user->getDepartemen($id);
         $this->Assign('ubahForm', 1);
         $this->Assign('userid', $id);
         $this->Assign('name', $data->getName());
         $this->Assign('email', $data->getEmail());
         $this->Assign('wewenang', $data->getwewenang());
+        $this->Assign('userdept', $userdept);
         $this->Assign('status', $data->getStatus());
         $this->index();
     }

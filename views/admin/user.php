@@ -98,9 +98,20 @@ foreach ($data['list'] as $list) {
               <label class="col-sm-2 col-sm-2 control-label">Wewenang</label>
               <div class="col-sm-10">
                 <select name="wewenang" class="form-control">
-                <?php foreach($data['wewenang'] as $w) { ?>
-                <option value="<?=$w->idgroup?>"><?=$w->gname?></option>
-                <?php } ?>
+                <?php foreach ($data['wewenang'] as $w) {?>
+                <option value="<?=$w->idgroup;?>"><?=$w->gname;?></option>
+                <?php }?>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Departemen</label>
+              <div class="col-sm-10">
+                <select name="departemen" class="form-control">
+                <option value="">--- Departemen ---</option>
+                <?php foreach ($data['listdepartemen'] as $d) {?>
+                <option value="<?=$d->iddepartemen;?>"><?=$d->name;?></option>
+                <?php }?>
                 </select>
               </div>
             </div>
@@ -152,6 +163,17 @@ foreach ($data['list'] as $list) {
                   <option value="1">Admin</option>
                   <option value="2">Operator</option>
                   <option value="3">Umum</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Departemen</label>
+              <div class="col-sm-10">
+                <select name="departemen" class="form-control">
+                <option value="">--- Departemen ---</option>
+                <?php foreach ($data['listdepartemen'] as $d) {?>
+                <option value="<?=$d->iddepartemen;?>" <?=(!empty($data['userdept']) && $data['userdept']->iddepartemen == $d->iddepartemen) ? "selected" : "";?>><?=$d->name;?></option>
+                <?php }?>
                 </select>
               </div>
             </div>
