@@ -112,8 +112,8 @@ class Menu_Controller extends Controller {
 
     }
     public function hapus($id) {
-        $kategoridokumen = new KategoriDokumen;
-        $kategoridokumen->hapus($id);
+        $menu = new _Menu;
+        $menu->hapus($id);
         redirect(SITE_ROOT, 'admin/menu');
     }
 

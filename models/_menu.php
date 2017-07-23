@@ -15,6 +15,10 @@ class _Menu extends Model {
             return $this->getMenu($id, $parent);
         }
     }
+    public function hapus($id) {
+        $sql = "delete from _menu where id = $id";
+        return $this->_db->Exec($sql);
+    }
     public function ubah($data, $id) {
         $this->_db->setTable('_menu');
         return $this->_db->update($data, $id);
