@@ -100,37 +100,35 @@ class MenuGroup_Controller extends Controller {
     public function ubahSimpan() {
         $error = '';
         if (!isset($_POST)) {
-            $error = 'Data pengubahan tidak ditemukan';
+            $error = 'Data tidak ditemukan';
             $this->Assign('errorMessage', $error);
-            $this->index();
+            return $this->index();
         }
-        $this->Assign('id', $_POST['id']);
-        $this->Assign('kategoridokumen', $_POST['kategoridokumen']);
-        $this->Assign('deskripsi', $_POST['deskripsi']);
-        if ($_POST['kategoridokumen'] == '') {
-            $error = 'Kategori dokumen tidak boleh kosong';
-            $this->Assign('errorMessage', $error);
-        }
-        $data = [
-            'id' => $_POST['id'],
-            'kategori' => $_POST['kategoridokumen'],
-            'deskripsi' => $_POST['deskripsi'],
-        ];
 
-        $kategoridokumen = new KategoriDokumen;
+        if (!isset($_POST['idgroup']) || $_POST['idgroup'] == '') {
+            logs('group kosong');
+            $error = 'Group belum dipilih';
+            $this->Assign('errorMessage', $error);
+        }
+        if (!isset($_POST['idmenu']) || $_POST['idmenu'] == '') {
+            logs('menu kosong');
+            $error = 'Menu belum dipilih';
+            $this->Assign('errorMessage', $error);
+        }
         if ($error == '') {
-            $result = $kategoridokumen->ubah($data, $_POST['id']);
+            $menugroup = new MenuGroup;
+            $result = $menugroup->ubahMenuGroup($_POST['oldgroup'], $_POST['oldmenu'], $_POST['idgroup'], $_POST['idmenu']);
             if (!$result) {
-                redirect(SITE_ROOT, 'admin/kategoridokumen');
+                redirect(SITE_ROOT, 'admin/menugroup');
             }
         }
         $this->Assign('ubahForm', 1);
         $this->index();
     }
     public function hapus($id) {
-        $kategoridokumen = new KategoriDokumen;
-        $kategoridokumen->hapus($id);
-        redirect(SITE_ROOT, 'admin/kategoridokumen');
+        $menugroup = new MenuGroup;
+        $menugroup->hapus($id);
+        redirect(SITE_ROOT, 'admin/menugroup');
     }
 
 }

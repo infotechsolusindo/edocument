@@ -24,10 +24,10 @@
                   <tr>
                     <th> Group User</th>
                     <th> Nama Menu</th>
-                    <th> Url</th>
-                    <th> Icon</th>
-                    <th> Status</th>
-                    <th></th>
+                    <!-- <th> Url</th> -->
+                    <!-- <th> Icon</th> -->
+                    <!-- <th> Status</th> -->
+                    <th width="100px"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -39,16 +39,16 @@
                       <td>
                         <?php echo $list->mname; ?>
                       </td>
-                      <td>
-                        <?php echo $list->url; ?>
-                      </td>
-                      <td>
-                        <?php echo $list->icon; ?>
-                      </td>
-                      <td>
-                        <?php echo $list->status; ?>
-                      </td>
-                      <td>
+<!--                       <td>
+  <?php echo $list->url; ?>
+</td> -->
+<!--                       <td>
+  <?php echo $list->icon; ?>
+</td> -->
+<!--                       <td>
+  <?php echo $list->status; ?>
+</td> -->
+                      <td width="100px">
                         <a href="?url=admin/menugroup/ubah/<?php echo $list->idgroup; ?>/<?php echo $list->idmenu; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                         <a href="?url=admin/menugroup/hapus/<?php echo $list->idgroup; ?>/<?php echo $list->idmenu; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                       </td>
@@ -80,7 +80,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Tambah Menu</h4>
+          <h4 class="modal-title">Tambah Menu Group</h4>
         </div>
       <?php if ($data['successMessage']) {?>
       <!-- Message OK -->
@@ -134,12 +134,13 @@
 <a href="/#ubahForm" id="editbtn" data-toggle="modal"></a>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="ubahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <form action="?url=admin/menu/ubahSimpan" method="post" class="form-horizontal style-form">
-      <input name="id" type="hidden" class="form-control" value="<?php echo $data['id']; ?>">
+    <form action="?url=admin/menugroup/ubahSimpan" method="post" class="form-horizontal style-form">
+      <input type="hidden" name="oldgroup" value="<?php echo $data['idgroup']; ?>">
+      <input type="hidden" name="oldmenu" value="<?php echo $data['idmenu']; ?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Ubah Menu</h4>
+          <h4 class="modal-title">Ubah Menu Group </h4>
         </div>
         <div class="modal-body">
           <div class="form-panel">
