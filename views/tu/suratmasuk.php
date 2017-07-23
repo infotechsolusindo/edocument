@@ -16,6 +16,7 @@
                   <th> Jam Surat</th>
                   <th> ID</th>
                   <th> No. Dokumen</th>
+                  <th> Kategori</th>
                   <th> Judul</th>
                   <th> Perihal</th>
                   <th> Pengirim</th>
@@ -42,6 +43,9 @@
                     </td>
                     <td>
                       <?php echo $list->nodoc; ?>
+                    </td>
+                    <td>
+                      <?php echo $list->kategori; ?>
                     </td>
                     <td>
                       <?php echo $list->judul; ?>

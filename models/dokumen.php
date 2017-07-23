@@ -10,7 +10,13 @@ class Dokumen extends Model {
         $this->_db->setTable('dokumen');
     }
     public function getAllNew() {
-        return $this->_db->Exec("select * from dokumen where kategori = $this->kategori and status = '0' order by tgl desc");
+        return $this->_db->Exec("select * from dokumen where status = '0' order by tgl desc");
+    }
+    public function getAllNewByPengirim($pengirim) {
+
+    }
+    public function getAllNewByPenerima($penerima) {
+
     }
     public function setKategori($kategori) {
         $this->kategori = $kategori;

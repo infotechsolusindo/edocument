@@ -1,5 +1,5 @@
 <?php
-class Index_Controller extends Controller {
+class SuratTugas_Controller extends Controller {
     private $style;
     private $script_top;
     private $script_bottom;
@@ -77,8 +77,17 @@ class Index_Controller extends Controller {
         logs('Masuk index Controller');
         $this->getHeaderFooter();
 
-        $list = new Dokumen;
         $this->Load_View('dokumen/index');
     }
+    public function tambah() {
+        $dokumen = new Dokumen;
+        $dokumen->setKategori();
+
+    }
+    public function tambahSimpan() {}
+    public function ubah() {
+
+    }
+    public function ubahSimpan() {}
 
 }

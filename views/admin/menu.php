@@ -115,7 +115,7 @@
               <div class="col-sm-10">
                 <select name="parent" id="parent">
                 <?php foreach ($data['list'] as $list) {?>
-                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->idparent) ? 'selected' : '';?>>
+                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->mparent) ? 'selected' : '';?>>
                     <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
                   </option>
                 <?php }?>

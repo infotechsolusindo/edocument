@@ -29,6 +29,7 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('footer', $footer->Render('footer', false));
     }
     public function index() {
+        $kategori = new kategoridokumen;
         $list = new SuratMasuk;
         $this->Assign('list', $list->getAllNew());
         $this->getHeaderFooter();
