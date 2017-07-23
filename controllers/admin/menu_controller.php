@@ -68,12 +68,13 @@ class Menu_Controller extends Controller {
         $this->index();
     }
     public function ubah($id) {
-        $kategoridokumen = new KategoriDokumen;
-        $data = $kategoridokumen->show($id);
-        $this->Assign('ubahForm', 1);
+        $menu = new _Menu($id);
         $this->Assign('id', $id);
-        $this->Assign('kategoridokumen', $data->kategori);
-        $this->Assign('deskripsi', $data->deskripsi);
+        $this->Assign('parent', $menu->parent);
+        $this->Assign('name', $menu->mname);
+        $this->Assign('url', $menu->url);
+        $this->Assign('icon', $menu->icon);
+        $this->Assign('ubahForm', true);
         $this->index();
     }
     public function ubahSimpan() {
@@ -83,33 +84,37 @@ class Menu_Controller extends Controller {
             $this->Assign('errorMessage', $error);
             $this->index();
         }
+        $menu = new _Menu;
         $this->Assign('id', $_POST['id']);
-        $this->Assign('kategoridokumen', $_POST['kategoridokumen']);
-        $this->Assign('deskripsi', $_POST['deskripsi']);
-        if ($_POST['kategoridokumen'] == '') {
-            $error = 'Kategori dokumen tidak boleh kosong';
+        $this->Assign('name', $_POST['name']);
+        $this->Assign('parent', $_POST['parent']);
+        $this->Assign('url', $_POST['url']);
+        $this->Assign('icon', $_POST['icon']);
+
+        if ($_POST['name'] == '') {
+            $error = 'Nama menu tidak boleh kosong';
             $this->Assign('errorMessage', $error);
         }
         $data = [
             'id' => $_POST['id'],
-            'kategori' => $_POST['kategoridokumen'],
-            'deskripsi' => $_POST['deskripsi'],
+            'mname' => $_POST['name'],
+            'mparent' => $_POST['parent'] == '' ? 1 : $_POST['parent'],
+            'url' => $_POST['url'],
+            'icon' => $_POST['icon'],
         ];
-
-        $kategoridokumen = new KategoriDokumen;
-        if ($error == '') {
-            $result = $kategoridokumen->ubah($data, $_POST['id']);
-            if (!$result) {
-                redirect(SITE_ROOT, 'admin/kategoridokumen');
-            }
+        $menu->ubah($data, $_POST['id']);
+        if ($error !== '') {
+            $this->Assign('ubahForm', 1);
+            $this->index();
+            return;
         }
-        $this->Assign('ubahForm', 1);
-        $this->index();
+        redirect(SITE_ROOT, 'admin/menu');
+
     }
     public function hapus($id) {
         $kategoridokumen = new KategoriDokumen;
         $kategoridokumen->hapus($id);
-        redirect(SITE_ROOT, 'admin/kategoridokumen');
+        redirect(SITE_ROOT, 'admin/menu');
     }
 
 }

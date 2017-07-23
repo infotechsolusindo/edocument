@@ -49,8 +49,8 @@
                         <?php echo $list->status; ?>
                       </td>
                       <td>
-                        <a href="?url=admin/kategoridokumen/ubah/<?php echo $list->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="?url=admin/kategoridokumen/hapus/<?php echo $list->id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                        <a href="?url=admin/menu/ubah/<?php echo $list->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="?url=admin/menu/hapus/<?php echo $list->id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                       </td>
                     </tr>
                   <?php }?>
@@ -113,7 +113,6 @@
  -->            <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Parent</label>
               <div class="col-sm-10">
-                <!-- <input name="parent" type="text" class="form-control" value="<?=isset($data['parent']) ? $data['parent'] : '';?>"> -->
                 <select name="parent" id="parent">
                 <?php foreach ($data['list'] as $list) {?>
                   <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->idparent) ? 'selected' : '';?>>
@@ -166,7 +165,13 @@
             <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Parent</label>
               <div class="col-sm-10">
-                <input name="parent" type="text" class="form-control" value="<?php echo $data['parent']; ?>">
+                <select name="parent" id="parent">
+                <?php foreach ($data['list'] as $list) {?>
+                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->idparent) ? 'selected' : '';?>>
+                    <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
+                  </option>
+                <?php }?>
+                </select>
               </div>
             </div>
             <div class="form-group">
@@ -185,7 +190,8 @@
             <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Icon</label>
               <div class="col-sm-10">
-                <input name="icon" type="text" class="form-control" value="<?=isset($data['icon']) ? $data['icon'] : '';?>">
+                <input name="icon" type="text" class="" value="<?=isset($data['icon']) ? $data['icon'] : '';?>">
+                <span class="<?=isset($data['icon']) ? $data['icon'] : '';?>"></span>
               </div>
             </div>
         </div>

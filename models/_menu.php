@@ -15,6 +15,10 @@ class _Menu extends Model {
             return $this->getMenu($id, $parent);
         }
     }
+    public function ubah($data, $id) {
+        $this->_db->setTable('_menu');
+        return $this->_db->update($data, $id);
+    }
     public function simpan($data) {
         $this->_db->setTable('_menu');
         return $this->_db->create($data);
