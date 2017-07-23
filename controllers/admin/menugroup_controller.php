@@ -29,8 +29,26 @@ class MenuGroup_Controller extends Controller {
         $this->Assign('footer', $footer->Render('footer', false));
     }
     public function index() {
-        $list = new _MenuFactory;
-        $this->Assign('list', $list->getMenuList());
+        logs('Ambil menu group');
+        $idgroup = null;
+        if (isset($_GET['cmd']) && $_GET['cmd'] == 'refresh') {
+            $idgroup = $_POST['group'] !== '' ? $_POST['group'] : null;
+        }
+        $menugroup = new MenuGroup;
+        $mg = $menugroup->getmenugroup($idgroup);
+        $user = new User;
+        $ug = $user->getUserGroups();
+        $menus = new _MenuFactory;
+        $this->Assign('menu', $menus->getMenuList());
+        $this->Assign('usergroup', $ug);
+        $this->Assign('menugroup', $mg);
+        $this->script_bottom = "
+            <script>
+              $('#group').on('change',function(){
+                $('#groupform').submit();
+              });
+            </script>
+        ";
         $this->getHeaderFooter();
         $this->Load_View('admin/menugroup');
     }
@@ -41,39 +59,42 @@ class MenuGroup_Controller extends Controller {
             $this->Assign('errorMessage', $error);
             return $this->index();
         }
-        // $this->Assign('parent', $_POST['parent']);
-        // $this->Assign('name', $_POST['name']);
-        // $this->Assign('url', $_POST['url']);
-        // $this->Assign('icon', $_POST['icon']);
 
-        if ($_POST['name'] == '') {
-            logs('name kosong');
-            $error = 'Nama menu tidak boleh kosong';
+        if (!isset($_POST['idgroup']) || $_POST['idgroup'] == '') {
+            logs('group kosong');
+            $error = 'Group belum dipilih';
+            $this->Assign('errorMessage', $error);
+        }
+        if (!isset($_POST['idmenu']) || $_POST['idmenu'] == '') {
+            logs('menu kosong');
+            $error = 'Menu belum dipilih';
             $this->Assign('errorMessage', $error);
         }
         if ($error == '') {
             $data = [
-                'mparent' => $_POST['parent'],
-                'mname' => $_POST['name'],
-                'url' => $_POST['url'],
-                'icon' => $_POST['icon'],
+                'idgroup' => $_POST['idgroup'],
+                'idmenu' => $_POST['idmenu'],
             ];
-            $menu = new _Menu;
-            $result = $menu->simpan($data);
+            $menugroup = new MenuGroup;
+            $result = $menugroup->simpanMenuGroup($data);
             if (!$result) {
-                redirect(SITE_ROOT, 'admin/menu');
+                redirect(SITE_ROOT, 'admin/menugroup');
             }
         }
         $this->Assign('tambahForm', 1);
         $this->index();
     }
-    public function ubah($id) {
-        $kategoridokumen = new KategoriDokumen;
-        $data = $kategoridokumen->show($id);
+    public function ubah($idgroup, $idmenu) {
+        $menugroup = new MenuGroup;
+        $data = $menugroup->show($idgroup, $idmenu);
         $this->Assign('ubahForm', 1);
-        $this->Assign('id', $id);
-        $this->Assign('kategoridokumen', $data->kategori);
-        $this->Assign('deskripsi', $data->deskripsi);
+        $user = new User;
+        $ug = $user->getUserGroups();
+        $menus = new _MenuFactory;
+        $this->Assign('menu', $menus->getMenuList());
+        $this->Assign('usergroup', $ug);
+        $this->Assign('idgroup', $idgroup);
+        $this->Assign('idmenu', $idmenu);
         $this->index();
     }
     public function ubahSimpan() {

@@ -8,33 +8,33 @@
       <div class="col-md-12">
         <div class="content-panel">
             <!-- <div style="overflow:scroll;height:600px"> -->
+            <div>
+            <form id="groupform" action="?url=admin/menugroup/index&cmd=refresh" method="post">
+            <select name="group" id="group" class="form-control">
+              <option value="">-- Tampilkan Menu dari Semua Group  --</option>
+              <?php foreach ($data['usergroup'] as $ug) {?>
+              <option value="<?php echo $ug->idgroup; ?>"><?php echo $ug->gname; ?></option>
+              <?php }?>
+            </select>
+            </form>
+            </div>
               <table class="table table-striped table-advance table-hover">
                 <hr>
                 <thead>
                   <tr>
-                    <th width="10"></th>
-                    <th> ID</th>
-                    <!-- <th> Group</th> -->
-                    <th> Parent</th>
-                    <th> Name</th>
-                    <th> URL</th>
+                    <th> Group User</th>
+                    <th> Nama Menu</th>
+                    <th> Url</th>
                     <th> Icon</th>
                     <th> Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($data['list'] as $list) {
-    ?>
+                  <?php if (!empty($data['menugroup'])) {foreach ($data['menugroup'] as $list) {?>
                     <tr>
                       <td>
-                        <input type="checkbox" />
-                      </td>
-                      <td>
-                        <?php echo $list->id; ?>
-                      </td>
-                      <td>
-                        <?php echo $list->mparent; ?>
+                        <?php echo $list->gname; ?>
                       </td>
                       <td>
                         <?php echo $list->mname; ?>
@@ -49,11 +49,11 @@
                         <?php echo $list->status; ?>
                       </td>
                       <td>
-                        <a href="?url=admin/menu/ubah/<?php echo $list->id; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                        <a href="?url=admin/menu/hapus/<?php echo $list->id; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
+                        <a href="?url=admin/menugroup/ubah/<?php echo $list->idgroup; ?>/<?php echo $list->idmenu; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="?url=admin/menugroup/hapus/<?php echo $list->idgroup; ?>/<?php echo $list->idmenu; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                       </td>
                     </tr>
-                  <?php }?>
+                  <?php }}?>
                 </tbody>
               </table>
             <!-- </div> -->
@@ -76,7 +76,7 @@
 <!-- Modal -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <form action="?url=admin/menu/tambahSimpan" method="post" class="form-horizontal style-form">
+    <form action="?url=admin/menugroup/tambahSimpan" method="post" class="form-horizontal style-form">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -99,45 +99,26 @@
       <?php }?>
         <div class="modal-body">
           <div class="form-panel">
-<!--             <div class="form-group">
+            <div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Group User</label>
               <div class="col-sm-10">
-                <select name="group" class="form-control">
-                  <option value="0">Super Admin</option>
-                  <option value="1">Admin</option>
-                  <option value="2">Operator</option>
-                  <option value="3">Umum</option>
+                <select name="idgroup" id="group" class="form-control">
+                  <?php foreach ($data['usergroup'] as $ug) {?>
+                  <option value="<?php echo $ug->idgroup; ?>" <?=isset($data['idgroup']) && ($data['idgroup'] == $ug->idgroup) ? 'selected' : '';?>><?php echo $ug->gname; ?></option>
+                  <?php }?>
                 </select>
               </div>
             </div>
- -->            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Parent</label>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Menu</label>
               <div class="col-sm-10">
-                <select name="parent" id="parent">
-                <?php foreach ($data['list'] as $list) {?>
-                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->idparent) ? 'selected' : '';?>>
+                <select name="idmenu" id="menu">
+                <?php foreach ($data['menu'] as $list) {?>
+                  <option value="<?=$list->id;?>" <?=isset($data['idmenu']) && ($data['idmenu'] == $list->id) ? 'selected' : '';?>>
                     <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
                   </option>
                 <?php }?>
                 </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Menu Name</label>
-              <div class="col-sm-10">
-                <input name="name" type="text" class="form-control" value="<?=isset($data['name']) ? $data['name'] : '';?>">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">URL</label>
-              <div class="col-sm-10">
-                <input name="url" type="text" class="form-control" value="<?=isset($data['url']) ? $data['url'] : '';?>">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Icon</label>
-              <div class="col-sm-10">
-                <input name="icon" type="text" class="form-control" value="<?=isset($data['icon']) ? $data['icon'] : '';?>">
               </div>
             </div>
           </div>
@@ -163,34 +144,25 @@
         <div class="modal-body">
           <div class="form-panel">
             <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Parent</label>
+              <label class="col-sm-2 col-sm-2 control-label">Group User</label>
               <div class="col-sm-10">
-                <select name="parent" id="parent">
-                <?php foreach ($data['list'] as $list) {?>
-                  <option value="<?=$list->id;?>" <?=isset($data['parent']) && ($data['parent'] == $list->mparent) ? 'selected' : '';?>>
-                    <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
-                  </option>
-                <?php }?>
+                <select name="idgroup" id="group" class="form-control">
+                  <?php foreach ($data['usergroup'] as $ug) {?>
+                  <option value="<?php echo $ug->idgroup; ?>" <?=isset($data['idgroup']) && ($data['idgroup'] == $ug->idgroup) ? 'selected' : '';?>><?php echo $ug->gname; ?></option>
+                  <?php }?>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Menu Name</label>
+              <label class="col-sm-2 col-sm-2 control-label">Menu</label>
               <div class="col-sm-10">
-                <input name="name" type="text" class="form-control" value="<?php echo $data['name']; ?>">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">URL</label>
-              <div class="col-sm-10">
-                <input name="url" type="text" class="form-control" value="<?=isset($data['url']) ? $data['url'] : '';?>">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Icon</label>
-              <div class="col-sm-10">
-                <input name="icon" type="text" class="" value="<?=isset($data['icon']) ? $data['icon'] : '';?>">
-                <span class="<?=isset($data['icon']) ? $data['icon'] : '';?>"></span>
+                <select name="idmenu" id="parent">
+                <?php foreach ($data['menu'] as $list) {?>
+                  <option value="<?=$list->id;?>" <?=isset($data['idmenu']) && ($data['idmenu'] == $list->id) ? 'selected' : '';?>>
+                    <?=($list->mparent > 1) ? "-- $list->mname" : $list->mname;?>
+                  </option>
+                <?php }?>
+                </select>
               </div>
             </div>
           </div>
