@@ -90,4 +90,9 @@ class User extends Model {
 
     }
 
+    public function getUserGroups() {
+        $sql = "select * from user_group";
+        return $this->_db->Exec($sql);
+    }
+
 }
