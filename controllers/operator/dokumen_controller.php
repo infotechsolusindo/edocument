@@ -74,6 +74,10 @@ class Dokumen_Controller extends Controller {
         // $this->Load_View('dokumen/tambah');
     }
 
-    // public function tambah
-
+    public function masuk() {
+        $this->Load_View('operator/dokumen');
+    }
+    public function keluar() {
+        $this->Load_View('operator/dokumen');
+    }
 }
