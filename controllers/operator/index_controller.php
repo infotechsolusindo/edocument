@@ -1,5 +1,5 @@
 <?php
-class SuratTugas_Controller extends Controller {
+class Index_Controller extends Controller {
     private $style;
     private $script_top;
     private $script_bottom;

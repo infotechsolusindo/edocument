@@ -125,9 +125,9 @@ class MenuGroup_Controller extends Controller {
         $this->Assign('ubahForm', 1);
         $this->index();
     }
-    public function hapus($id) {
+    public function hapus($idgroup, $idmenu) {
         $menugroup = new MenuGroup;
-        $menugroup->hapus($id);
+        $menugroup->hapus($idgroup, $idmenu);
         redirect(SITE_ROOT, 'admin/menugroup');
     }
 

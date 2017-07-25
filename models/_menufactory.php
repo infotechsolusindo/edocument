@@ -20,7 +20,7 @@ class _Menufactory extends Model {
     public function loadMenus() {
         $where = "";
         $sql = "select * from _menugroup ";
-        if ($this->group) {
+        if (!is_null($this->group)) {
             $where = "idgroup = $this->group";
         }
 
@@ -33,7 +33,7 @@ class _Menufactory extends Model {
 
         foreach ($result as $r) {
             $p = 0;
-            if ($this->parent) {
+            if (!is_null($this->parent)) {
                 $p = $this->parent;
             }
 

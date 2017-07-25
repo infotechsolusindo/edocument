@@ -28,4 +28,12 @@ class MenuGroup extends Model {
         $sql = "update _menugroup set idgroup = $idgroup, idmenu = $idmenu where idgroup = $oldgroup and idmenu = $oldmenu";
         return $this->_db->Exec($sql);
     }
+    public function hapus($idgroup, $idmenu) {
+        if ($idgroup == '' && $idmenu == '') {
+            return;
+        }
+
+        $sql = "delete from _menugroup where idgroup = $idgroup and idmenu = $idmenu ";
+        $this->_db->Exec($sql);
+    }
 }

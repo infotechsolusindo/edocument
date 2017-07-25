@@ -3,8 +3,8 @@ class Menu {
     function __construct() {
         logs('Generate Side Left Menu ----------------------------------------------------------');
         $menu = new _Menufactory;
-        $menu->setGroup(1);
-        $menu->setTopParent(1);
+        $menu->setGroup($_SESSION['idwewenang']);
+        //$menu->setTopParent(1);
         $this->menus = $this->getMenus($menu->loadMenus());
     }
     private function getMenus($menus) {
