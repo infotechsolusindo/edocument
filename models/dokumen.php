@@ -12,11 +12,11 @@ class Dokumen extends Model {
     public function getAllNew() {
         return $this->_db->Exec("select * from dokumen where status = '0' order by tgl desc");
     }
-    public function getAllNewByPengirim($pengirim) {
-
+    public function getAllNewByPengirim($pengirim, $status = 0) {
+        return $this->_db->Exec("select * from dokumen where pengirim = '$pengirim' and status = '$status'");
     }
-    public function getAllNewByPenerima($penerima) {
-
+    public function getAllNewByPenerima($penerima, $status = 0) {
+        return $this->_db->Exec("select * from dokumen where penerima = '$penerima' and status = '$status'");
     }
     public function setKategori($kategori) {
         $this->kategori = $kategori;
