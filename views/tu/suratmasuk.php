@@ -42,7 +42,9 @@
                       <?php echo $list->iddoc; ?>
                     </td>
                     <td>
-                      <?php echo $list->nodoc; ?>
+                      <a href="<?php echo '?url=tu/suratmasuk/view/' . $list->iddoc; ?>">
+                        <?php echo $list->nodoc; ?>
+                      </a>
                     </td>
                     <td>
                       <?php echo $list->kategori; ?>
@@ -76,6 +78,7 @@
     }$list->status;?>
                     </td>
                     <td>
+                      <a href="?url=tu/suratmasuk/kirim/<?php echo $list->iddoc; ?>" class="btn btn-success btn-xs"><i class="fa fa-send"></i></a>
                       <a href="?url=tu/suratmasuk/ubah/<?php echo $list->iddoc; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                       <a href="?url=tu/suratmasuk/hapus/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></a>
                     </td>

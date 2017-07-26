@@ -182,5 +182,12 @@ class SuratMasuk_Controller extends Controller {
         $suratmasuk->hapus($id);
         redirect(SITE_ROOT, 'tu/suratmasuk');
     }
+    public function view($id) {
+        $dokumen = new Dokumen;
+        $data = $dokumen->show($id);
+        $this->Assign('dokumen', $data);
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratmasuk_view');
+    }
 
 }
