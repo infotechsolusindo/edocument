@@ -106,10 +106,10 @@
 <!-- Modal -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <form action="?url=tu/suratmasuk/tambahSimpan" method="post" class="form-horizontal style-form">
+    <form action="?url=tu/suratmasuk/tambahSimpan" method="post" class="form-horizontal style-form" enctype="multipart/form-data">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['kategori']) ? $data['kategori'] : 2;?>">
+      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['tipe']) ? $data['tipe'] : 1;?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -157,17 +157,38 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+            <div class="col-sm-10 ">
+              <select name="kategori" id="" class="form-control">
+              <?php if (!empty($data['kategori'])) {foreach ($data['kategori'] as $k) {?>
+                <option value="<?=$k->id;?>" <?php (isset($data['idkategori']) && $data['idkategori'] == $k->id) ? 'selected' : '';?> ><?=$k->kategori;?></option>
+              <?php }}?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-sm-6">
               <label class="col-sm-2 col-sm-2 control-label">Pengirim</label>
               <div class="col-sm-10">
-                <input name="pengirim" type="text" class="form-control" value="<?=isset($data['pengirim']) ? $data['pengirim'] : '';?>">
+                <input name="pengirim" type="text" class="" value="<?=isset($data['pengirim']) ? $data['pengirim'] : '';?>">
               </div>
             </div>
             <div class="col-sm-6">
               <label class="col-sm-2 col-sm-2 control-label">Penerima</label>
               <div class="col-sm-10">
                 <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
+                <select name="departemenpengirim" id="" class="form-control">
+                <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
+                  <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
+                <?php }}?>
+                </select>
               </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">File Dokumen</label>
+            <div class="col-sm-10">
+              <input name="filedokumen" type="file" class="">
             </div>
           </div>
         </div>
@@ -186,7 +207,7 @@
       <input name="iddoc" type="hidden" class="form-control" value="<?=isset($data['iddoc']) ? $data['iddoc'] : 2;?>">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['kategori']) ? $data['kategori'] : 2;?>">
+      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['tipe']) ? $data['tipe'] : 1;?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -219,6 +240,16 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+            <div class="col-sm-10 ">
+              <select name="kategori" id="" class="form-control">
+              <?php if (!empty($data['kategori'])) {foreach ($data['kategori'] as $k) {?>
+                <option value="<?=$k->id;?>" <?php ($data['idkategori'] == $k->id) ? 'selected' : '';?> ><?=$k->kategori;?></option>
+              <?php }}?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-sm-6">
               <label class="col-sm-2 col-sm-2 control-label">Pengirim</label>
               <div class="col-sm-10">
@@ -230,6 +261,12 @@
               <div class="col-sm-10">
                 <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
               </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">File Dokumen</label>
+            <div class="col-sm-10 ">
+              <a href="<?php echo SITE_ROOT . $data['filedokumen']; ?>" class="btn btn-success" <?=isset($data['filedokumen']) ? '' : 'disabled';?> >Download Dokumen</a>
             </div>
           </div>
         </div>

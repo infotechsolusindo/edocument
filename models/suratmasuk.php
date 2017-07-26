@@ -6,10 +6,10 @@ class SuratMasuk extends Dokumen {
         $this->setTable('dokumen');
         $this->setKategori(2); //2 = Surat Masuk
     }
-/*
-public function getAllNew() {
-return $this->_db->Exec("SELECT * FROM $this->tbname WHERE kategori = $this->kategori and status = '0' ORDER BY tgl DESC");
-}*/
+
+    public function getAllNew() {
+        return $this->_db->Exec("select * from dokumen where tipe = '1' and status = '0' order by tgl desc");
+    }
     public function getTerkirim() {
         $sql = "select * from dokumen where kategori = $this->kategori and status = '1' order by tgl desc";
         return $this->_db->Exec($sql);
@@ -22,4 +22,7 @@ return $this->_db->Exec("SELECT * FROM $this->tbname WHERE kategori = $this->kat
         $sql = "select * from dokumen where kategori = $this->kategori and status = 'x' order by tgl desc";
         return $this->_db->Exec($sql);
     }
+    // public function hapus($id,$force=false){
+    //     $sql = "update dokumen set status = 'D' where "
+    // }
 }

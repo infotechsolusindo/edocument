@@ -77,7 +77,7 @@ class Index_Controller extends Controller {
         logs('Masuk index Controller');
         $this->getHeaderFooter();
 
-        $this->Load_View('dokumen/index');
+        $this->Load_View('general/index');
     }
     public function tambah() {
         $dokumen = new Dokumen;

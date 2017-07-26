@@ -75,9 +75,55 @@ class Dokumen_Controller extends Controller {
     }
 
     public function masuk() {
+        $data = [];
+        $list = new Dokumen;
+        foreach ($list->getAllNew() as $l) {
+            switch ($l->status) {
+            case 1:$status = "Sending";
+                break;
+            case 2:$status = "Complete";
+                break;
+            default:
+                $status = "-";
+                break;
+            }
+            $data[] = (Object) [
+                'tgl' => $l->tgl,
+                'jam' => $l->jam,
+                'nodoc' => $l->nodoc,
+                'judul' => $l->judul,
+                'status' => $status,
+                'statuscode' => $l->status,
+            ];
+        }
+        $this->Assign('list', $data);
+        $this->getHeaderFooter();
         $this->Load_View('operator/dokumen');
     }
     public function keluar() {
+        $data = [];
+        $list = new Dokumen;
+        foreach ($list->getAllNew() as $l) {
+            switch ($l->status) {
+            case 1:$status = "Sending";
+                break;
+            case 2:$status = "Complete";
+                break;
+            default:
+                $status = "-";
+                break;
+            }
+            $data[] = (Object) [
+                'tgl' => $l->tgl,
+                'jam' => $l->jam,
+                'nodoc' => $l->nodoc,
+                'judul' => $l->judul,
+                'status' => $status,
+                'statuscode' => $l->status,
+            ];
+        }
+        $this->Assign('list', $data);
+        $this->getHeaderFooter();
         $this->Load_View('operator/dokumen');
     }
 }

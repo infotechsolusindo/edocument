@@ -15,7 +15,13 @@ class SuratKeluar_Controller extends Controller {
         $sidebarleft->Assign('modules', $modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
     }
-
+    public function uploadFile($file) {
+        $file_tmp = $file['tmp_name'];
+        $filename = date('Ymdhhmmss') . '-' . $file['name'];
+        $fullpath = ROOT . '/data/dokumen/' . $filename;
+        move_uploaded_file($file_tmp, $fullpath);
+        return $fullpath;
+    }
     private function getHeaderFooter() {
         $header = new View();
         $header->Assign('app_title', APP_TITLE);
@@ -31,6 +37,8 @@ class SuratKeluar_Controller extends Controller {
     public function index() {
         $list = new SuratKeluar;
         $this->Assign('list', $list->getAllNew());
+        $departemen = new Departemen;
+        $this->Assign('listdepartemen', $departemen->getDepartemen());
         $this->getHeaderFooter();
         $this->Load_View('tu/suratkeluar');
     }
@@ -54,7 +62,9 @@ class SuratKeluar_Controller extends Controller {
         $this->Load_View('tu/suratkeluar');
     }
     public function tambahSimpan() {
+        var_dump($_POST);die;
         $error = '';
+        $filedokumen = '';
         if (!isset($_POST)) {
             $error = 'Data tidak ditemukan';
             $this->Assign('errorMessage', $error);
@@ -68,11 +78,16 @@ class SuratKeluar_Controller extends Controller {
         $this->Assign('perihal', $_POST['perihal']);
         $this->Assign('pengirim', $_POST['pengirim']);
         $this->Assign('penerima', $_POST['penerima']);
+        $this->Assign('departemenpenerima', $_POST['departemenpenerima']);
 
         if ($_POST['kategori'] == '') {
             logs('kategoridokumen kosong');
             $error = 'Kategori dokumen tidak boleh kosong';
             $this->Assign('errorMessage', $error);
+        }
+
+        if (!empty($_FILES) && (isset($_FILES['filedokumen']))) {
+            $filedokumen = $this->uploadFile($_FILES['filedokumen']);
         }
 
         $data = [
@@ -84,6 +99,8 @@ class SuratKeluar_Controller extends Controller {
             'perihal' => $_POST['perihal'],
             'pengirim' => $_POST['pengirim'],
             'penerima' => $_POST['penerima'],
+            'data1' => $_POST['departemenpenerima'], // departemen penerima
+            'data2' => $filedokumen,
             'status' => '0',
         ];
         $suratkeluar = new SuratKeluar;

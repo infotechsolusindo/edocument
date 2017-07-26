@@ -38,7 +38,6 @@ class Index_Controller extends Controller {
 		    });
 		    </script>
 		';
-
         $this->getHeaderFooter();
     }
     public function suratmasuk() {

@@ -15,7 +15,13 @@ class SuratMasuk_Controller extends Controller {
         $sidebarleft->Assign('modules', $modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
     }
-
+    public function uploadFile($file) {
+        $file_tmp = $file['tmp_name'];
+        $filename = date('Ymdhhmmss') . '-' . $file['name'];
+        $fullpath = '/data/dokumen/' . $filename;
+        move_uploaded_file($file_tmp, ROOT . $fullpath);
+        return $fullpath;
+    }
     private function getHeaderFooter() {
         $header = new View();
         $header->Assign('app_title', APP_TITLE);
@@ -30,8 +36,11 @@ class SuratMasuk_Controller extends Controller {
     }
     public function index() {
         $kategori = new kategoridokumen;
+        $this->Assign('kategori', $kategori->getKategori());
         $list = new SuratMasuk;
         $this->Assign('list', $list->getAllNew());
+        $departemen = new Departemen;
+        $this->Assign('listdepartemen', $departemen->getDepartemen());
         $this->getHeaderFooter();
         $this->Load_View('tu/suratmasuk');
     }
@@ -55,11 +64,14 @@ class SuratMasuk_Controller extends Controller {
     }
     public function tambahSimpan() {
         $error = '';
+        $filedokumen = '';
         if (!isset($_POST)) {
             $error = 'Data tidak ditemukan';
             $this->Assign('errorMessage', $error);
             return $this->index();
         }
+        $file = $this->uploadFile($_FILES['filedokumen']);
+
         $this->Assign('tgl', $_POST['tgl']);
         $this->Assign('jam', $_POST['jam']);
         $this->Assign('kategori', $_POST['kategori']);
@@ -68,6 +80,7 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('perihal', $_POST['perihal']);
         $this->Assign('pengirim', $_POST['pengirim']);
         $this->Assign('penerima', $_POST['penerima']);
+        $this->Assign('departemenpenerima', $_POST['departemenpenerima']);
 
         if ($_POST['kategori'] == '') {
             logs('kategoridokumen kosong');
@@ -75,15 +88,22 @@ class SuratMasuk_Controller extends Controller {
             $this->Assign('errorMessage', $error);
         }
 
+        if (!empty($_FILES) && (isset($_FILES['filedokumen']))) {
+            $filedokumen = $this->uploadFile($_FILES['filedokumen']);
+        }
+
         $data = [
             'tgl' => $_POST['tgl'],
             'jam' => $_POST['jam'],
+            'tipe' => 1,
             'kategori' => $_POST['kategori'],
             'nodoc' => $_POST['nodoc'],
             'judul' => $_POST['judul'],
             'perihal' => $_POST['perihal'],
             'pengirim' => $_POST['pengirim'],
             'penerima' => $_POST['penerima'],
+            'data1' => $_POST['departemenpenerima'], // departemen penerima
+            'data2' => $filedokumen,
             'status' => '0',
         ];
         $suratmasuk = new SuratMasuk;
@@ -109,6 +129,8 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('perihal', $data->perihal);
         $this->Assign('pengirim', $data->pengirim);
         $this->Assign('penerima', $data->penerima);
+        $this->Assign('idkategori', $data->kategori);
+        $this->Assign('filedokumen', $data->data2);
 
         $this->index();
     }

@@ -157,6 +157,11 @@
               <label class="col-sm-2 col-sm-2 control-label">Pengirim</label>
               <div class="col-sm-10">
                 <input name="pengirim" type="text" class="form-control" value="<?=isset($data['pengirim']) ? $data['pengirim'] : '';?>">
+                <select name="departemenpengirim" id="" class="form-control">
+                <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
+                  <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
+                <?php }}?>
+                </select>
               </div>
             </div>
             <div class="col-sm-6">
@@ -164,6 +169,12 @@
               <div class="col-sm-10">
                 <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
               </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">File Dokumen</label>
+            <div class="col-sm-10">
+              <input name="filedokumen" type="file" class="">
             </div>
           </div>
         </div>
