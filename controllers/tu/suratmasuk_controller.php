@@ -130,6 +130,7 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('pengirim', $data->pengirim);
         $this->Assign('penerima', $data->penerima);
         $this->Assign('idkategori', $data->kategori);
+        $this->Assign('iddepartemen', $data->data1); // iddepartemen dari penerima
         $this->Assign('filedokumen', $data->data2);
 
         $this->index();
@@ -165,6 +166,7 @@ class SuratMasuk_Controller extends Controller {
             'pengirim' => $_POST['pengirim'],
             'penerima' => $_POST['penerima'],
             'status' => '0',
+            'data1' => $_POST['departemenpenerima'],
         ];
 
         $suratmasuk = new SuratMasuk;
@@ -189,5 +191,19 @@ class SuratMasuk_Controller extends Controller {
         $this->getHeaderFooter();
         $this->Load_View('tu/suratmasuk_view');
     }
-
+    public function kirim($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '1');
+        redirect(SITE_ROOT . '?url=tu/suratmasuk');
+    }
+    public function terima($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '2');
+        redirect(SITE_ROOT . '?url=tu/suratmasuk');
+    }
+    public function tolak($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '3');
+        redirect(SITE_ROOT . '?url=tu/suratmasuk');
+    }
 }

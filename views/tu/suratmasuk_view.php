@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <div class="content-panel">
           <div class="">
-            <?php //var_dump($data['dokumen']);;;;;;;;;;;;;;;;;;;;;;;;;;;;?>
+            <?php //var_dump($data['dokumen']);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;?>
             <?php $dok = $data['dokumen'];?>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -23,12 +23,11 @@
                 <table class="table">
                   <tr><td>Tgl</td><td>: <?=$dok->tgl;?></td></tr>
                   <tr><td>Jam</td><td>: <?=$dok->jam;?></td></tr>
-                  <tr><td>Tipe</td><td>: <?=$dok->tipe;?></td></tr>
-                  <tr><td>Kategori</td><td>: <?=$dok->kategori;?></td></tr>
+                  <tr><td>Kategori</td><td>: <?=$dok->nmkategori;?></td></tr>
                   <tr><td>Judul</td><td>: <?=$dok->judul;?></td></tr>
                   <tr><td>Perihal</td><td>: <?=$dok->perihal;?></td></tr>
                   <tr><td>Pengirim</td><td>: <?=$dok->pengirim;?></td></tr>
-                  <tr><td>Penerima</td><td>: <?=$dok->penerima;?></td></tr>
+                  <tr><td>Penerima</td><td>: <?=$dok->penerima;?> <span class="badge badge-primary">Departemen: <?=$dok->departemen;?></span></td></tr>
                   <tr><td>Status</td><td>: <?=$dok->status;?> (0 = Belum Terkirim, 1=Terkirim, 2=DiTerima, 3=Ditolak)</td></tr>
                   <tr><td>Tgl Kirim</td><td>: <?=$dok->tglkirim;?></td></tr>
                   <tr><td>Jam Kirim</td><td>: <?=$dok->jamkirim;?></td></tr>

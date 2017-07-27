@@ -25,7 +25,11 @@ class Dokumen extends Model {
         $this->_table = $table;
     }
     public function show($id) {
-        $result = $this->_db->Exec("select * from dokumen where iddoc = $id");
+        $sql = "select d.*,k.kategori as nmkategori,p.name as departemen from dokumen as d" .
+            " left join kategoridokumen as k on k.id = d.kategori" .
+            " left join departemen as p on p.iddepartemen = d.data1" .
+            " where iddoc = $id";
+        $result = $this->_db->Exec($sql);
         $doc = $result[0];
         $this->data[1] = $doc->data1;
         $this->data[2] = $doc->data2;
@@ -53,5 +57,15 @@ class Dokumen extends Model {
     }
     public function getInfo($idx) {
         return $this->info[$idx];
+    }
+    public function setStatus($id, $status) {
+        if ($status == '1') {
+            $updatetime = ", tglkirim = date(now()), jamkirim = time(now()) ";
+        }
+        if ($status == '2') {
+            $updatetime = ", tglterima = date(now()), jamterima = time(now()) ";
+        }
+        $sql = "update dokumen set status = '$status' $updatetime where iddoc = $id";
+        return $this->_db->Exec($sql);
     }
 }

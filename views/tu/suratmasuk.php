@@ -180,7 +180,7 @@
               <label class="col-sm-2 col-sm-2 control-label">Penerima</label>
               <div class="col-sm-10">
                 <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
-                <select name="departemenpengirim" id="" class="form-control">
+                <select name="departemenpenerima" id="" class="form-control">
                 <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                   <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
                 <?php }}?>
@@ -263,6 +263,11 @@
               <label class="col-sm-2 col-sm-2 control-label">Penerima</label>
               <div class="col-sm-10">
                 <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
+                <select name="departemenpenerima" id="" class="form-control">
+                <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
+                  <option value="<?=$dept->iddepartemen;?>" <?=($data['iddepartemen'] == $dept->iddepartemen) ? 'selected' : '';?>><?=$dept->name;?></option>
+                <?php }}?>
+                </select>
               </div>
             </div>
           </div>

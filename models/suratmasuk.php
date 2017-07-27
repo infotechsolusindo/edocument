@@ -4,22 +4,21 @@ class SuratMasuk extends Dokumen {
         $db = DB_ENGINE;
         parent::__construct(new $db);
         $this->setTable('dokumen');
-        $this->setKategori(2); //2 = Surat Masuk
     }
 
     public function getAllNew() {
         return $this->_db->Exec("select * from dokumen where tipe = '1' and status = '0' order by tgl desc");
     }
     public function getTerkirim() {
-        $sql = "select * from dokumen where kategori = $this->kategori and status = '1' order by tgl desc";
+        $sql = "select * from dokumen where tipe = '1' and status = '1' order by tgl desc";
         return $this->_db->Exec($sql);
     }
     public function getDiterima() {
-        $sql = "select * from dokumen where kategori = $this->kategori and status = '2' order by tgl desc";
+        $sql = "select * from dokumen where tipe = '1' and status = '2' order by tgl desc";
         return $this->_db->Exec($sql);
     }
     public function getDitolak() {
-        $sql = "select * from dokumen where kategori = $this->kategori and status = 'x' order by tgl desc";
+        $sql = "select * from dokumen where tipe = '1' and status = 'x' order by tgl desc";
         return $this->_db->Exec($sql);
     }
     // public function hapus($id,$force=false){

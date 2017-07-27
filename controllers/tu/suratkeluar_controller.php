@@ -126,8 +126,12 @@ class SuratKeluar_Controller extends Controller {
         $this->Assign('perihal', $data->perihal);
         $this->Assign('pengirim', $data->pengirim);
         $this->Assign('penerima', $data->penerima);
-
-        $this->index();
+        $list = new SuratKeluar;
+        $this->Assign('list', $list->getAllNew());
+        $departemen = new Departemen;
+        $this->Assign('listdepartemen', $departemen->getDepartemen());
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratkeluar');
     }
     public function ubahSimpan() {
         $error = '';
