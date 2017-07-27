@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Dashboard">
     <!-- Meta Keywords and Meta Description -->
-    <?php echo $data['meta_keywords'];?>
-    <?php echo $data['meta_description'];?>
+    <?php echo $data['meta_keywords']; ?>
+    <?php echo $data['meta_description']; ?>
 
-    <title><?php echo $data['site_title'];?></title>
+    <title><?php echo $data['site_title']; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="public/assets/css/bootstrap.css" rel="stylesheet">
@@ -16,20 +16,20 @@
     <link href="public/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="public/assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="public/assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="public/assets/lineicons/style.css">    
-    
+    <link rel="stylesheet" type="text/css" href="public/assets/lineicons/style.css">
+
     <!-- Custom styles for this template -->
     <link href="public/assets/css/style.css" rel="stylesheet">
     <link href="public/assets/css/style-responsive.css" rel="stylesheet">
 
     <!-- Style spesific for this page -->
     <?php echo $data['style']; ?>
-    
-    <!-- Javascript spesific for this page (top) -->
-    <?php echo $data['script_top'];?>
 
-    
-    
+    <!-- Javascript spesific for this page (top) -->
+    <?php echo $data['script_top']; ?>
+
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,7 +49,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b><?php echo $data['site_name'];?></b></a>
+            <a href="index.html" class="logo"><b><?php echo $data['site_name']; ?></b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
 <!--                 notification start
