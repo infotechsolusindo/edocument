@@ -1,6 +1,18 @@
+<?php
+$ds = "";
+$exp = 0;
+?>
 <?php echo $data['header']; ?>
 <?php echo $data['sidebarleft']; ?>
 <!--main content start-->
+<style type="text/css">
+  .warning1 {
+    background: orange !important;
+  }
+  .warning2 {
+    background: red !important;
+  }
+</style>
 <section id="main-content">
   <section class="wrapper">
     <h3><i class="fa fa-angle-right"></i> Surat Masuk</h3>
@@ -13,7 +25,7 @@
                 <tr>
                   <th width="10"></th>
                   <th> Tanggal Masuk</th>
-                  <th> Jam Surat</th>
+                  <th> Jam Masuk</th>
                   <th> ID</th>
                   <th> No. Dokumen</th>
                   <th> Kategori</th>
@@ -29,39 +41,39 @@
                 <?php foreach ($data['list'] as $list) {
     ?>
                   <tr>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <input type="checkbox" />
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->tgl; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->jam; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->iddoc; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <a href="<?php echo '?url=tu/suratmasuk/view/' . $list->iddoc; ?>">
                         <?php echo $list->nodoc; ?>
                       </a>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->kategori; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->judul; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->perihal; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->pengirim; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php echo $list->penerima; ?>
                     </td>
-                    <td>
+                    <td class="<?=$list->expstatus;?>">
                       <?php switch ($list->status) {
     case '1':
         echo "Terkirim";
@@ -96,6 +108,7 @@
               <a href="?url=tu/suratmasuk/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
               <a href="?url=tu/suratmasuk/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
               <a href="?url=tu/suratmasuk/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
+              <a href="?url=tu/suratmasuk/daftarDihapus" class="btn btn-sm btn-primary" ><i class="fa fa-recycle"></i> Dihapus</a>
           </footer>
         </div>
         <!-- /content-panel -->
@@ -220,7 +233,7 @@
           <div class="form-group">
             <label class="col-sm-2 col-sm-2 control-label">Waktu</label>
             <div class="col-sm-10">
-              <?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>
+                <?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>
                 <?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>
             </div>
           </div>
@@ -274,7 +287,7 @@
           <div class="form-group">
             <label class="col-sm-2 col-sm-2 control-label">File Dokumen</label>
             <div class="col-sm-10 ">
-              <a href="<?php echo SITE_ROOT . $data['filedokumen']; ?>" class="btn btn-success" <?=isset($data['filedokumen']) ? '' : 'disabled';?> >Download Dokumen</a>
+              <a href="?url=tu/suratmasuk/download/<?php echo $data['iddoc']; ?>" class="btn btn-success" <?=isset($data['filedokumen']) ? '' : 'disabled';?> >Lihat Dokumen</a>
             </div>
           </div>
         </div>

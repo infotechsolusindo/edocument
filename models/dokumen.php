@@ -49,7 +49,7 @@ class Dokumen extends Model {
     final public function ubah($data, $id) {
         return $this->_db->update($data, $id, 'iddoc');
     }
-    final public function hapus($id) {
+    public function hapus($id) {
         return $this->_db->Exec("delete from dokumen where id = $id");
     }
     public function tambahInfo($idx, $value) {

@@ -21,7 +21,20 @@ class SuratMasuk extends Dokumen {
         $sql = "select * from dokumen where tipe = '1' and status = 'x' order by tgl desc";
         return $this->_db->Exec($sql);
     }
-    // public function hapus($id,$force=false){
-    //     $sql = "update dokumen set status = 'D' where "
-    // }
+    public function getDihapus() {
+        $sql = "select * from dokumen where tipe = '1' and status = 'D' order by tgl desc";
+        return $this->_db->Exec($sql);
+    }
+    public function hapus($id, $force = false) {
+        if ($force) {
+            $sql = "delete from dokumen where iddoc = $id";
+        } else {
+            $sql = "update dokumen set status = 'D' where iddoc = $id";
+        }
+        return $this->_db->Exec($sql);
+    }
+    public function pulihkan($id) {
+        $sql = "update dokumen set status = '0' where iddoc = $id";
+        return $this->_db->Exec($sql);
+    }
 }

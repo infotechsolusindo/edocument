@@ -62,7 +62,6 @@ class SuratKeluar_Controller extends Controller {
         $this->Load_View('tu/suratkeluar');
     }
     public function tambahSimpan() {
-        var_dump($_POST);die;
         $error = '';
         $filedokumen = '';
         if (!isset($_POST)) {

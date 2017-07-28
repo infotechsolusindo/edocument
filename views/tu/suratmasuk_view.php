@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <div class="content-panel">
           <div class="">
-            <?php //var_dump($data['dokumen']);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;?>
+            <?php //var_dump($data['dokumen']);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;?>
             <?php $dok = $data['dokumen'];?>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -33,7 +33,7 @@
                   <tr><td>Jam Kirim</td><td>: <?=$dok->jamkirim;?></td></tr>
                   <tr><td>Tgl Terima</td><td>: <?=$dok->tglterima;?></td></tr>
                   <tr><td>Jam Terima</td><td>: <?=$dok->jamterima;?></td></tr>
-                  <tr><td>File Dokumen</td><td>: <a href="<?=$dok->data2;?>" class="btn btn-success">Lihat</a></td></tr>
+                  <tr><td>File Dokumen</td><td>: <a href="?url=tu/suratmasuk/download/<?=$dok->iddoc;?>" class="btn btn-success">Lihat Dokumen</a></td></tr>
                 </table>
               </div>
             </div>
