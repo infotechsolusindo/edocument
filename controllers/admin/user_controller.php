@@ -126,6 +126,7 @@ class User_Controller extends Controller {
         ];
         $user = new User;
         $user->editUser($_POST['id'], $data);
+        $user->setDepartemen($_POST['id'],$_POST['departemen']);
         $this->index();
     }
 

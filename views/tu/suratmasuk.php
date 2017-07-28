@@ -103,7 +103,7 @@ $exp = 0;
           <footer class="site-footer">
             <dir class="col-md-3 hidden-sm hidden-xs"></dir>
             <div class="col-md-6 col-xs-12 text-center">
-              <a id="addBtn" href="/#tambahForm" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a>
+              <a href="?url=tu/suratmasuk/tambah" class="btn btn-sm btn-default" ><i class="fa fa-plus"></i> Tambah</a>
               <a href="?url=tu/suratmasuk" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
               <a href="?url=tu/suratmasuk/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
               <a href="?url=tu/suratmasuk/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
@@ -120,6 +120,7 @@ $exp = 0;
 </section>
 <!--main content end-->
 <!-- Modal -->
+<a href="/#tambahForm" id="addBtn" data-toggle="modal"></a>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambahForm" class="modal fade">
   <div class="modal-dialog modal-lg">
     <form action="?url=tu/suratmasuk/tambahSimpan" method="post" class="form-horizontal style-form" enctype="multipart/form-data">
@@ -192,7 +193,7 @@ $exp = 0;
             <div class="col-sm-6">
               <label class="col-sm-2 col-sm-2 control-label">Penerima</label>
               <div class="col-sm-10">
-                <input name="penerima" type="text" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
+                <input name="penerima" type="text" placeholder="Nama Penerima (UP)" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
                 <select name="departemenpenerima" id="" class="form-control">
                 <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                   <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>

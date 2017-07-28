@@ -46,6 +46,7 @@ class Login_Controller extends Controller {
         $_SESSION['time'] = time();
         $_SESSION['wewenang'] = $user->getwewenang()->gpath;
         $_SESSION['path'] = $_SESSION['privileges'] == '' ? $_SESSION['privileges'] . '/index' : $_SESSION['wewenang'] . '/index';
+        $_SESSION['departemen'] = $user->getDepartemen($_SESSION['id']);
         logs(print_r($_SESSION));
         return redirect(SITE_ROOT, $_SESSION['path']);
     }

@@ -39,34 +39,6 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('footer', $footer->Render('footer', false));
     }
 
-/*
-public 'iddoc' => string '44' (length=2)
-public 'tgl' => string '2017-07-28' (length=10)
-public 'jam' => string '01:07:19' (length=8)
-public 'tipe' => string '1' (length=1)
-public 'kategori' => string '1' (length=1)
-public 'nodoc' => string 'sdsd' (length=4)
-public 'judul' => string 'adsad' (length=5)
-public 'perihal' => string 'sdsdsdv' (length=7)
-public 'pengirim' => string '' (length=0)
-public 'penerima' => string '' (length=0)
-public 'status' => string '0' (length=1)
-public 'tglkirim' => null
-public 'jamkirim' => null
-public 'tglterima' => null
-public 'jamterima' => null
-public 'data1' => string '1' (length=1)
-public 'data2' => string '/data/dokumen/20170728010107073838-' (length=35)
-public 'data3' => null
-public 'data4' => null
-public 'data5' => null
-public 'data6' => null
-public 'data7' => null
-public 'data8' => null
-public 'data9' => null
-public 'data10' => null
- */
-
     public function index() {
         $result = new SuratMasuk;
         $arrlist = (Object) [];
@@ -349,6 +321,10 @@ public 'data10' => null
         }
 
         $this->Assign('tambahForm', 1);
+        $this->index();
+    }
+    public function tambah(){
+        $this->Assign('tambahForm',1);
         $this->index();
     }
     public function ubah($id) {

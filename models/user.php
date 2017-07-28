@@ -65,6 +65,10 @@ class User extends Model {
         }
         return $result[0];
     }
+    public function setDepartemen($userid,$iddepartemen){
+        $sql = "insert into user_departemen value('$userid',$iddepartemen) on duplicate key update iddepartemen = $iddepartemen";
+        $this->_db->Exec($sql);
+    }
     public function getUsers($condition = []) {
         $return = $this->_db->Exec('SELECT * FROM users');
         foreach ($return as $user) {
