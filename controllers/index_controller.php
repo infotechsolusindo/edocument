@@ -51,10 +51,6 @@ class Index_Controller extends Controller {
         $this->script_bottom = '';
 
         logs('Masuk index Controller');
-        // if(!checkSession()){
-        //     logs('Session tidak ditemukan');
-        //     redirect(SITE_ROOT,'auth/login');
-        // }
         if (isset($_SESSION['path']) && ($_SESSION['path'] !== '')) {
             redirect(SITE_ROOT, $_SESSION['path']);
         }

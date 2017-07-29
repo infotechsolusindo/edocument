@@ -60,7 +60,7 @@ class Dokumen_Controller extends Controller {
         }
         $this->Assign('list', $data);
         $this->getHeaderFooter();
-        $this->Load_View('operator/dokumen');
+        $this->Load_View('operator/dokumenkeluar');
     }
 
     public function tambah() {
@@ -274,77 +274,16 @@ class Dokumen_Controller extends Controller {
             $data[] = $arrlist;
             $i++;
         }
-        $kategori = new KategoriDokumen;
-        $listkategori = [];
-        foreach ($kategori->getKategori() as $k) {
-            $listkategori[$k->id] = $k->kategori;
-        }
-        $this->Assign('listkategori', $listkategori);
         $this->Assign('list', $data);
         $this->getHeaderFooter();
         $this->Load_View('operator/disposisi');
-    }
-    public function disposisi_keluar() {
-        $data = [];
-        $i = 0;
-        $exp = '';
-        $list = new Disposisi;
-        $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']);
-        foreach ($listbydepartemen as $r) {
-            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
-            if ($date_span->days > 1) {
-                $exp = 'warning1';
-            } else if ($date_span->days > 2) {
-                $exp = 'warning2';
-            } else if ($r->status == '1') {
-                $exp = 'unread';
-            }
-            $arrlist = (Object) [];
-            $arrlist->iddoc = $r->iddoc;
-            $arrlist->tgl = $r->tgl;
-            $arrlist->jam = $r->jam;
-            $arrlist->tipe = $r->tipe;
-            $arrlist->kategori = $r->kategori;
-            $arrlist->nodoc = $r->nodoc;
-            $arrlist->judul = $r->judul;
-            $arrlist->perihal = $r->perihal;
-            $arrlist->pengirim = $r->pengirim;
-            $arrlist->penerima = $r->penerima;
-            $arrlist->status = $r->status;
-            $arrlist->tglkirim = $r->tglkirim;
-            $arrlist->jamkirim = $r->jamkirim;
-            $arrlist->tglterima = $r->tglterima;
-            $arrlist->jamterima = $r->jamterima;
-            $arrlist->data1 = $r->data1;
-            $arrlist->data2 = $r->data2;
-            $arrlist->data3 = $r->data3;
-            $arrlist->data4 = $r->data4;
-            $arrlist->data5 = $r->data5;
-            $arrlist->data6 = $r->data6;
-            $arrlist->data7 = $r->data7;
-            $arrlist->data8 = $r->data8;
-            $arrlist->data9 = $r->data9;
-            $arrlist->data10 = $r->data10;
-            $arrlist->expstatus = $exp;
-            $data[] = $arrlist;
-            $i++;
-        }
-        $kategori = new KategoriDokumen;
-        $listkategori = [];
-        foreach ($kategori->getKategori() as $k) {
-            $listkategori[$k->id] = $k->kategori;
-        }
-        $this->Assign('listkategori', $listkategori);
-        $this->Assign('list', $data);
-        $this->getHeaderFooter();
-        $this->Load_View('operator/disposisi_keluar');
     }
     public function disposisi_arsip() {
         $data = [];
         $i = 0;
         $exp = '';
         $list = new Disposisi;
-        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen'], 'S');
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen'], 2);
         foreach ($listbydepartemen as $r) {
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
@@ -384,12 +323,6 @@ class Dokumen_Controller extends Controller {
             $data[] = $arrlist;
             $i++;
         }
-        $kategori = new KategoriDokumen;
-        $listkategori = [];
-        foreach ($kategori->getKategori() as $k) {
-            $listkategori[$k->id] = $k->kategori;
-        }
-        $this->Assign('listkategori', $listkategori);
         $this->Assign('list', $data);
         $this->getHeaderFooter();
         $this->Load_View('operator/disposisi');
@@ -400,7 +333,7 @@ class Dokumen_Controller extends Controller {
         $jamdisposisi = $_POST['jam'];
         $dokumeninduk = $_POST['dokumeninduk'];
         $memo = $_POST['memo'];
-        $pengirim = $_SESSION['nama'];
+        $pengirim = $_SESSION['id'];
         $penerimas = $_POST['penerima'];
         $departemenpenerimas = $_POST['departemenpenerima'];
         $dokumeninduk = new Dokumen;
@@ -417,12 +350,11 @@ class Dokumen_Controller extends Controller {
                 'kategori' => $di->kategori,
                 'nodoc' => 'DISP/' . $di->nodoc,
                 'perihal' => 'Disposisi: ' . $di->perihal,
-                'pengirim' => $pengirim,
+                'pengirim' => $di->penerima == '' ? $pengirim : $di->penerima,
                 'penerima' => $nama,
                 'data1' => $departemenpenerimas[$i], // departemen penerima
                 'data2' => $di->iddoc, //refrensi ke dokumen induk
                 'data3' => $memo, //isi memo disposisi
-                'data4' => $_SESSION['departemen']->iddepartemen,
                 'status' => '1',
             ];
             $dokumen->tambah($data);
@@ -437,10 +369,7 @@ class Dokumen_Controller extends Controller {
     public function disposisi_view($id) {
         $dokumen = new Dokumen;
         $disposisi = $dokumen->show($id);
-        logs('Current Dept:' . $_SESSION['departemen']->iddepartemen);
-        if ($disposisi->data4 != $_SESSION['departemen']->iddepartemen) {
-            $dokumen->setStatus($id, '2');
-        }
+        $dokumen->setStatus($id, '2');
         $lampiran = $dokumen->show($disposisi->data2);
         $this->Assign('lampiran', $lampiran);
         $this->Assign('disposisi', $disposisi);

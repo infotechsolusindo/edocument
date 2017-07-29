@@ -15,7 +15,7 @@
                 <div class="">
                   <h2>No Dokumen : <?=$disposisi->nodoc;?></h2>
                   <div class="pull-right">
-                    <a href="?url=operator/dokumen/disposisi" class="btn btn-success btn-sm">Kembali</a>
+                    <a href="#" onclick="window.history.back();" class="btn btn-success btn-sm">Kembali</a>
                   </div>
                 </div>
               </div>

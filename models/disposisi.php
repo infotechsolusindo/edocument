@@ -9,7 +9,10 @@ class Disposisi extends Dokumen {
         $this->setKategori(1); //Surat Disposisi
     }
     public function getAllNewByPenerima($departemenpenerima, $status = 1) {
-        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and tipe = 3 and status = '$status' order by tgl desc,jam desc");
+        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and tipe = 3 and status <> 'D' and status <> 'S' order by tgl desc,jam desc");
+    }
+    public function getAllNewByPengirim($departemenpengirim, $status = null) {
+        return $this->_db->Exec("select * from dokumen where data4 = $departemenpengirim->iddepartemen and tipe = 3 and status <> 'D' and status <> 'S' order by tgl desc,jam desc");
     }
     public function getTerkirim() {
         $sql = "select * from dokumen where kategori = $this->kategori and status = '1' order by tgl desc";

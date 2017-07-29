@@ -73,8 +73,15 @@ class Index_Controller extends Controller {
 
 
 		';
+        /* Hitung dokumen yang baru masuk */
+        $dokumen = new Dokumen;
+        $docs = $dokumen->getAllNewByPenerima($_SESSION['departemen']);
+        // var_dump($docs);
+        /* Hitung disposisi baru */
+        $disposisi = new Disposisi;
+        $disps = $disposisi->getAllNewByPenerima($_SESSION['departemen']);
 
-        logs('Masuk index Controller');
+        logs('Masuk operator index Controller');
         $this->getHeaderFooter();
 
         $this->Load_View('general/index');
