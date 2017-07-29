@@ -75,6 +75,7 @@ class Dokumen_Controller extends Controller {
         $list = new Dokumen;
         $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';
@@ -174,6 +175,7 @@ class Dokumen_Controller extends Controller {
         $list = new Dokumen;
         $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';
@@ -233,8 +235,27 @@ class Dokumen_Controller extends Controller {
         }
     }
     public function tolak($id) {
+        $this->Assign('iddoc', $id);
+        $this->Assign('formAlasan', 1);
+        $this->masuk();
+    }
+    public function kembali($id) {
+        $this->Assign('iddoc', $id);
+        $this->Assign('formAlasan', 1);
+        $this->masuk();
+    }
+    public function catatanSimpan() {
         $dokumen = new Dokumen;
-        $dokumen->setStatus($id, '3');
+        $note = isset($_POST['catatan']) ? $_POST['catatan'] : '';
+        $id = $_POST['iddoc'];
+        logs('Catatan:' . $note);
+        if ($_POST['action'] == 1) {
+            $status = '3';
+        }
+        if ($_POST['action'] == 2) {
+            $status = 'x';
+        }
+        $dokumen->setStatus($id, $status, $note);
         redirect(SITE_ROOT, 'operator/dokumen/masuk');
     }
     public function arsip($id) {
@@ -259,6 +280,7 @@ class Dokumen_Controller extends Controller {
         $list = new Disposisi;
         $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';
@@ -314,6 +336,7 @@ class Dokumen_Controller extends Controller {
         $list = new Disposisi;
         $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';
@@ -369,6 +392,7 @@ class Dokumen_Controller extends Controller {
         $list = new Disposisi;
         $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen, 'S');
         foreach ($listbydepartemen as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';

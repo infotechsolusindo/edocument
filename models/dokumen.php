@@ -13,14 +13,14 @@ class Dokumen extends Model {
         return $this->_db->Exec("select * from dokumen where status = '0' order by tgl desc");
     }
     public function getAllNewByPengirim($departemenpengirim, $status = null) {
-        $sql = "select * from dokumen where data4 = $departemenpengirim and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
+        $sql = "select * from dokumen where data4 = $departemenpengirim and (status <> '0' and tipe <> '3' and status <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
         if (isset($status)) {
             $sql .= " and status = $status";
         }
         return $this->_db->Exec($sql);
     }
     public function getAllNewByPenerima($departemenpenerima, $status = null) {
-        $sql = "select * from dokumen where data1 = $departemenpenerima and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
+        $sql = "select * from dokumen where data1 = $departemenpenerima and (status <> '0' and tipe <> '3'  and status <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
         if (isset($status)) {
             $sql .= " and status = $status";
         }
@@ -73,14 +73,21 @@ class Dokumen extends Model {
     public function getInfo($idx) {
         return $this->info[$idx];
     }
-    public function setStatus($id, $status) {
+    public function setStatus($id, $status, $note = null) {
+        $updatetime = '';
+        $notes = '';
         if ($status == '1') {
             $updatetime = ", tglkirim = date(now()), jamkirim = time(now()) ";
         }
         if ($status == '2') {
             $updatetime = ", tglterima = date(now()), jamterima = time(now()) ";
         }
-        $sql = "update dokumen set status = '$status' $updatetime where iddoc = $id";
+        if ($note && $note !== '') {
+            logs('disini');
+            $notes = ", data5 = '$note'";
+        }
+
+        $sql = "update dokumen set status = '$status' $notes $updatetime where iddoc = $id";
         return $this->_db->Exec($sql);
     }
 }

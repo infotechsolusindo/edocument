@@ -17,6 +17,10 @@ class SuratMasuk extends Dokumen {
         $sql = "select * from dokumen where tipe = '1' and status = '2' order by tgl desc";
         return $this->_db->Exec($sql);
     }
+    public function getKembali() {
+        $sql = "select * from dokumen where tipe = '1' and status = '3' order by tgl desc";
+        return $this->_db->Exec($sql);
+    }
     public function getDitolak() {
         $sql = "select * from dokumen where tipe = '1' and status = 'x' order by tgl desc";
         return $this->_db->Exec($sql);

@@ -91,10 +91,10 @@ class SuratMasuk_Controller extends Controller {
         $result = new SuratMasuk;
         $arrlist = (Object) [];
         $list = [];
-        $exp = '';
         $i = 0;
         $rsresult = $result->getTerkirim();
         foreach ($rsresult as $r) {
+            $exp = '';
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
                 $exp = 'warning1';
@@ -176,6 +176,48 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('list', $list);
         $this->getHeaderFooter();
         $this->Load_View('tu/suratmasuk_diterima');
+    }
+    public function daftarKembali() {
+        $result = new SuratMasuk;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getKembali();
+        foreach ($rsresult as $r) {
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = '';
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratmasuk_kembali');
     }
     public function daftarDitolak() {
         $result = new SuratMasuk;
@@ -323,8 +365,8 @@ class SuratMasuk_Controller extends Controller {
         $this->Assign('tambahForm', 1);
         $this->index();
     }
-    public function tambah(){
-        $this->Assign('tambahForm',1);
+    public function tambah() {
+        $this->Assign('tambahForm', 1);
         $this->index();
     }
     public function ubah($id) {

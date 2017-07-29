@@ -107,6 +107,7 @@ $exp = 0;
               <a href="?url=tu/suratmasuk" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
               <a href="?url=tu/suratmasuk/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
               <a href="?url=tu/suratmasuk/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
+              <a href="?url=tu/suratmasuk/daftarKembali" class="btn btn-sm btn-primary" ><i class="fa fa-file"></i> Dikembalikan</a>
               <a href="?url=tu/suratmasuk/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
               <a href="?url=tu/suratmasuk/daftarDihapus" class="btn btn-sm btn-primary" ><i class="fa fa-recycle"></i> Dihapus</a>
           </footer>

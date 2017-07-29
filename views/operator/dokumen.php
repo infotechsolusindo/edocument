@@ -92,7 +92,7 @@
                       <td>
                         <a href="?url=operator/dokumen/view/<?php echo $list->iddoc; ?>" class="btn btn-success btn-xs"><i class="fa fa-expand"></i> Lihat</a>
                          <a href="?url=operator/dokumen/arsip/<?php echo $list->iddoc; ?>" class="btn btn-success btn-xs"><i class="fa fa-file"></i> Arsip</a>
-                         <a href="?url=operator/dokumen/tolak/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-ban"></i> Tolak</a>
+                         <a href="?url=operator/dokumen/kembali/<?php echo $list->iddoc; ?>" class="btn btn-warning btn-xs"><i class="fa fa-arrow-left"></i> Kembali</a>
                       </td>
                     </tr>
                     <?php }?>
@@ -168,4 +168,61 @@
   </div>
 </div>
 <!-- modal -->
+<a href="/#formAlasan" id="btnAlasan" data-toggle="modal"></a>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="formAlasan" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <form action="?url=operator/dokumen/catatanSimpan" method="post" class="form-horizontal style-form" enctype="multipart/form-data">
+      <input name="iddoc" type="hidden" class="form-control" value="<?=isset($data['iddoc']) ? $data['iddoc'] : '';?>">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Mohon isi alasan atau keterangan di sini</h4>
+        </div>
+      <?php if ($data['successMessage']) {?>
+      <!-- Message OK -->
+      <div id="successMessage" class="alert alert-success">
+        <p><strong>Your file was uploaded succesifully!</strong>
+        <a href="#" class="close"><i class="fa fa-times-circle-o"></i></a></p>
+      </div>
+      <!-- End Message OK -->
+      <?php }?>
+      <?php if ($data['errorMessage']) {?>
+      <!-- Message Error -->
+      <div id="errorMessage" class="alert alert-danger">
+        <p><strong><?php echo $data['errorMessage']; ?></strong>
+        <a href="#" class="close"><i class="fa fa-times-circle-o"></i></a></p> </div>
+      <!-- End Message Error -->
+      <?php }?>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Alasan</label>
+            <div class="col-sm-10">
+              <select name="action" id="">
+                <option value="1">Di Kembalikan</option>
+                <option value="2">Di Tolak</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Catatan</label>
+            <div class="col-sm-10">
+              <textarea name="catatan" id="" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
+          <button class="btn btn-theme" type="submit">Simpan</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <?php echo $data['footer']; ?>
+<?php if (isset($data['formAlasan'])) {?>
+<script>
+  $(document).ready(function(){
+    $('#btnAlasan').click();
+  })
+</script>
+<?php }?>
