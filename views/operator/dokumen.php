@@ -91,8 +91,8 @@
                       </td> -->
                       <td>
                         <a href="?url=operator/dokumen/view/<?php echo $list->iddoc; ?>" class="btn btn-success btn-xs"><i class="fa fa-expand"></i> Lihat</a>
+                         <a href="?url=operator/dokumen/arsip/<?php echo $list->iddoc; ?>" class="btn btn-success btn-xs"><i class="fa fa-file"></i> Arsip</a>
                          <a href="?url=operator/dokumen/tolak/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-ban"></i> Tolak</a>
-                         <a href="?url=operator/dokumen/hapus/<?php echo $list->iddoc; ?>" class="btn btn-danger btn-xs"><i class="fa fa-recycle"></i> Hapus</a>
                       </td>
                     </tr>
                     <?php }?>
@@ -107,6 +107,9 @@
                       <!-- <a href="?url=dokumen/otorisasi" class="btn btn-sm btn-danger "><i class="fa fa-check-circle-o"></i> Otorisasi</a> -->
                       <!-- <a href="?url=dokumen/tolak" class="btn btn-sm btn-danger "><i class="fa fa-times-circle-o"></i> Tolak</a> -->
                       <a href="#" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a>
+                      <a href="?url=operator/dokumen/masuk" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Daftar Dokumen Masuk</a>
+                      <a href="?url=operator/dokumen/disposisi" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Daftar Disposisi Dokumen</a>
+                      <a href="?url=operator/dokumen/masuk_arsip" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Daftar Arsip</a>
                       <!-- <button id="btntambah" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah</button> -->
                       <!-- <a href="?url=dokumen/ubah" class="btn btn-sm btn-success "><i class="fa fa-pencil"></i> Ubah</a> -->
                       <!-- <a href="?url=dokumen/hapus" class="btn btn-sm btn-success "><i class="fa fa-eraser"></i> Hapus</a> -->

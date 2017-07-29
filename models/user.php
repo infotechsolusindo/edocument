@@ -65,7 +65,7 @@ class User extends Model {
         }
         return $result[0];
     }
-    public function setDepartemen($userid,$iddepartemen){
+    public function setDepartemen($userid, $iddepartemen) {
         $sql = "insert into user_departemen value('$userid',$iddepartemen) on duplicate key update iddepartemen = $iddepartemen";
         $this->_db->Exec($sql);
     }
@@ -87,7 +87,8 @@ class User extends Model {
     }
 
     public function removeUser($userid) {
-
+        $this->_db->Exec("delete from users_departemen where userid = '$userid'");
+        $this->_db->Exec("delete from users where userid = '$userid'");
     }
 
     public function getCredential($userid, $password) {

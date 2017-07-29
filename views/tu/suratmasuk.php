@@ -126,7 +126,6 @@ $exp = 0;
     <form action="?url=tu/suratmasuk/tambahSimpan" method="post" class="form-horizontal style-form" enctype="multipart/form-data">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['tipe']) ? $data['tipe'] : 1;?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -224,7 +223,6 @@ $exp = 0;
       <input name="iddoc" type="hidden" class="form-control" value="<?=isset($data['iddoc']) ? $data['iddoc'] : 2;?>">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="kategori" type="hidden" class="form-control" value="<?=isset($data['tipe']) ? $data['tipe'] : 1;?>">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

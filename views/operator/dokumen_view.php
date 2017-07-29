@@ -36,7 +36,7 @@
                 </table>
                 <center>
                   <a href="?url=operator/dokumen/masuk" class="btn btn-success btn-sm">Kembali</a>
-                  <!-- <a href="?url=operator/dokumen/disposisi/<?=$dok->iddoc;?>" class="btn btn-success btn-sm">Buat Disposisi</a> -->
+                  <a href="?url=operator/dokumen/formdisposisi/<?=$dok->iddoc;?>" class="btn btn-success btn-sm">Buat Disposisi</a>
                 </center>
               </div>
             </div>
@@ -60,7 +60,6 @@
     <form action="?url=operator/dokumen/disposisiSimpan" method="post" class="form-horizontal style-form" enctype="multipart/form-data">
       <input name="tgl" type="hidden" class="form-control" value="<?=isset($data['tgl']) ? $data['tgl'] : date('Y-m-d');?>">
       <input name="jam" type="hidden" class="form-control" value="<?=isset($data['jam']) ? $data['jam'] : date('H:m:s');?>">
-      <input name="tipe" type="hidden" class="form-control" value="<?=isset($data['tipe']) ? $data['tipe'] : 3;?>">
       <input name="dokumeninduk" type="hidden" class="form-control" value="<?=isset($data['dokumeninduk']) ? $data['dokumeninduk'] : '';?>">
       <div class="modal-content">
         <div class="modal-header">
@@ -86,7 +85,8 @@
           <div class="input-group">
             <input name="penerima[1]" type="text" placeholder="Penerima Disposisi 1" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
             <span class="input-group-addon" style="padding: 0px">
-              <select name="departemenpenerima[]" id="" class="">
+              <select name="departemenpenerima[1]" id="" class="">
+                <option value=""> -- Departemen -- </option>
               <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                 <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
               <?php }}?>
@@ -96,7 +96,8 @@
           <div class="input-group">
             <input name="penerima[2]" type="text" placeholder="Penerima Disposisi 2 (Opsi)" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
             <span class="input-group-addon" style="padding: 0px">
-              <select name="departemenpenerima[]" id="" class="">
+              <select name="departemenpenerima[2]" id="" class="">
+                <option value=""> -- Departemen -- </option>
               <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                 <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
               <?php }}?>
@@ -106,7 +107,8 @@
           <div class="input-group">
             <input name="penerima[3]" type="text" placeholder="Penerima Disposisi 3 (Opsi)" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
             <span class="input-group-addon" style="padding: 0px">
-              <select name="departemenpenerima[]" id="" class="">
+              <select name="departemenpenerima[3]" id="" class="">
+                <option value=""> -- Departemen -- </option>
               <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                 <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
               <?php }}?>
@@ -116,7 +118,8 @@
           <div class="input-group">
             <input name="penerima[4]" type="text" placeholder="Penerima Disposisi 4 (Opsi)" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
             <span class="input-group-addon" style="padding: 0px">
-              <select name="departemenpenerima[]" id="" class="">
+              <select name="departemenpenerima[4]" id="" class="">
+                <option value=""> -- Departemen -- </option>
               <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                 <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
               <?php }}?>
@@ -126,7 +129,8 @@
           <div class="input-group">
             <input name="penerima[5]" type="text" placeholder="Penerima Disposisi 5 (Opsi)" class="form-control" value="<?=isset($data['penerima']) ? $data['penerima'] : '';?>">
             <span class="input-group-addon" style="padding: 0px">
-              <select name="departemenpenerima[]" id="" class="">
+              <select name="departemenpenerima[5]" id="" class="">
+                <option value=""> -- Departemen -- </option>
               <?php if (!empty($data['listdepartemen'])) {foreach ($data['listdepartemen'] as $dept) {?>
                 <option value="<?=$dept->iddepartemen;?>"><?=$dept->name;?></option>
               <?php }}?>

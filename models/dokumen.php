@@ -15,8 +15,11 @@ class Dokumen extends Model {
     public function getAllNewByPengirim($pengirim, $status = 0) {
         return $this->_db->Exec("select * from dokumen where pengirim = '$pengirim' and status = '$status'");
     }
-    public function getAllNewByPenerima($deptartemenpenerima) {
-        return $this->_db->Exec("select * from dokumen where data1 = $deptartemenpenerima->iddepartemen and (status <> '0' and status <> 'x' and status <> 'D')");
+    public function getAllNewByPenerima($departemenpenerima) {
+        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S')");
+    }
+    public function getAllArsipByPenerima($departemenpenerima) {
+        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and status = 'S' and tipe <> '3'");
     }
     public function setKategori($kategori) {
         $this->kategori = $kategori;

@@ -117,6 +117,48 @@ class Dokumen_Controller extends Controller {
         $this->getHeaderFooter();
         $this->Load_View('operator/dokumen');
     }
+    public function masuk_arsip() {
+        $data = [];
+        $i = 0;
+        $exp = '';
+        $list = new Dokumen;
+        $listbydepartemen = $list->getAllArsipByPenerima($_SESSION['departemen']);
+        foreach ($listbydepartemen as $r) {
+            $exp = '';
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $data[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $data);
+        $this->getHeaderFooter();
+        $this->Load_View('operator/dokumen');
+    }
     public function view($id) {
         $dokumen = new Dokumen;
         $data = $dokumen->show($id);
@@ -170,11 +212,16 @@ class Dokumen_Controller extends Controller {
     public function tolak($id) {
         $dokumen = new Dokumen;
         $dokumen->setStatus($id, '3');
-        redirect(SITE_ROOT . 'operator/dokumen/masuk');
+        redirect(SITE_ROOT, 'operator/dokumen/masuk');
     }
-    public function hapus($id, $force = false) {
-        $suratmasuk = new SuratMasuk;
-        $suratmasuk->hapus($id, $force);
+    public function arsip($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, 'S');
+        redirect(SITE_ROOT, 'operator/dokumen/masuk');
+    }
+    public function hapus($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, 'D');
         redirect(SITE_ROOT, 'operator/dokumen/masuk');
     }
     public function pulihkan($id) {
@@ -182,16 +229,108 @@ class Dokumen_Controller extends Controller {
         $suratmasuk->pulihkan($id);
         redirect(SITE_ROOT, 'operator/dokumen/masuk');
     }
-    public function disposisi($id) {
-        $this->Assign('buatDisposisi', 1);
-        $this->Assign('dokumeninduk', $id);
-        $this->view($id);
+    public function disposisi() {
+        $data = [];
+        $i = 0;
+        $exp = '';
+        $list = new Disposisi;
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']);
+        foreach ($listbydepartemen as $r) {
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            } else if ($r->status == '1') {
+                $exp = 'unread';
+            }
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $data[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $data);
+        $this->getHeaderFooter();
+        $this->Load_View('operator/disposisi');
+    }
+    public function disposisi_arsip() {
+        $data = [];
+        $i = 0;
+        $exp = '';
+        $list = new Disposisi;
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen'], 2);
+        foreach ($listbydepartemen as $r) {
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            } else if ($r->status == '1') {
+                $exp = 'unread';
+            }
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $data[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $data);
+        $this->getHeaderFooter();
+        $this->Load_View('operator/disposisi');
     }
     public function disposisiSimpan() {
         if (empty($_POST)) {return;}
         $tgldisposisi = $_POST['tgl'];
         $jamdisposisi = $_POST['jam'];
-        $tipe = $_POST['tipe'];
         $dokumeninduk = $_POST['dokumeninduk'];
         $memo = $_POST['memo'];
         $pengirim = $_SESSION['id'];
@@ -199,17 +338,42 @@ class Dokumen_Controller extends Controller {
         $departemenpenerimas = $_POST['departemenpenerima'];
         $dokumeninduk = new Dokumen;
         $di = $dokumeninduk->show($_POST['dokumeninduk']);
-        var_dump($di);
-        $i = 0;
         foreach ($penerimas as $i => $nama) {
-            $i++;
             if ($nama == '' || $departemenpenerimas[$i] == '') {
                 continue;
             }
             $dokumen = new Dokumen;
             $data = [
-
+                'tgl' => $_POST['tgl'],
+                'jam' => $_POST['jam'],
+                'tipe' => 3,
+                'kategori' => $di->kategori,
+                'nodoc' => 'DISP/' . $di->nodoc,
+                'perihal' => 'Disposisi: ' . $di->perihal,
+                'pengirim' => $di->penerima,
+                'penerima' => $nama,
+                'data1' => $departemenpenerimas[$i], // departemen penerima
+                'data2' => $di->iddoc, //refrensi ke dokumen induk
+                'data3' => $memo, //isi memo disposisi
+                'status' => '1',
             ];
+            $dokumen->tambah($data);
         }
+        redirect(SITE_ROOT, 'operator/dokumen/masuk');
+    }
+    public function formdisposisi($id) {
+        $this->Assign('buatDisposisi', 1);
+        $this->Assign('dokumeninduk', $id);
+        $this->view($id);
+    }
+    public function disposisi_view($id) {
+        $dokumen = new Dokumen;
+        $disposisi = $dokumen->show($id);
+        $dokumen->setStatus($id, '2');
+        $lampiran = $dokumen->show($disposisi->data2);
+        $this->Assign('lampiran', $lampiran);
+        $this->Assign('disposisi', $disposisi);
+        $this->getHeaderFooter();
+        $this->Load_View('operator/disposisi_view');
     }
 }

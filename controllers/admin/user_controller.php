@@ -89,11 +89,11 @@ class User_Controller extends Controller {
         ];
         $result = $user->addUser($data);
         if (empty($result)) {
-            $email = new Email;
-            $email->to($_POST['email']);
-            $email->subject('Password Anda');
-            $email->body('Password: ' . $password);
-            $email->sendemail();
+            // $email = new Email;
+            // $email->to($_POST['email']);
+            // $email->subject('Password Anda');
+            // $email->body('Password: ' . $password);
+            // $email->sendemail();
         }
         $this->getHeaderFooter();
         return $this->index();
@@ -117,6 +117,18 @@ class User_Controller extends Controller {
         $this->index();
     }
     public function ubahSimpan() {
+        $password = [];
+        $user = new User;
+        if ($_POST['oldpassword'] !== '') {
+            $u = $user->getUser($_POST['id']);
+            if ($u->getpassword() === md5($_POST['oldpassword'])) {
+                if ($_POST['newpassword'] == $_POST['confpassword']) {
+                    $password = [
+                        'password' => md5($_POST['newpassword']),
+                    ];
+                }
+            }
+        }
         $data = [
             'userid' => $_POST['id'],
             'name' => $_POST['name'],
@@ -124,14 +136,14 @@ class User_Controller extends Controller {
             'email' => $_POST['email'],
             'status' => $_POST['status'],
         ];
-        $user = new User;
-        $user->editUser($_POST['id'], $data);
-        $user->setDepartemen($_POST['id'],$_POST['departemen']);
+        $user->editUser($_POST['id'], $data + $password);
+        $user->setDepartemen($_POST['id'], $_POST['departemen']);
         $this->index();
     }
 
     public function hapus($userid) {
-
+        $user = new User;
+        $user->hapus($userid);
     }
 
 }

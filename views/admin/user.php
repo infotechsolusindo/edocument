@@ -160,9 +160,9 @@ foreach ($data['list'] as $list) {
               <label class="col-sm-2 col-sm-2 control-label">Wewenang</label>
               <div class="col-sm-10">
                 <select name="wewenang" class="form-control">
-                  <option value="1">Admin</option>
-                  <option value="2">Operator</option>
-                  <option value="3">Umum</option>
+                <?php if (isset($data['wewenang'])) {foreach ($data['wewenang'] as $w) {?>
+                <option value="<?=$w->idgroup;?>"><?=$w->gname;?></option>
+                <?php }}?>
                 </select>
               </div>
             </div>
@@ -181,6 +181,24 @@ foreach ($data['list'] as $list) {
               <label class="col-sm-2 col-sm-2 control-label">Email</label>
               <div class="col-sm-10">
                 <input name="email" type="text" class="form-control" value="<?=isset($data['email']) ? $data['email'] : '';?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Password Lama (Kosongi bila tidak ingin mengubah password)</label>
+              <div class="col-sm-10">
+                <input name="oldpassword" type="password" class="form-control" value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Password Baru</label>
+              <div class="col-sm-10">
+                <input name="newpassword" type="password" class="form-control" value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
+              <div class="col-sm-10">
+                <input name="confpassword" type="password" class="form-control" value="">
               </div>
             </div>
             <div class="form-group">
