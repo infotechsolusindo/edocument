@@ -1,4 +1,4 @@
 <?php
-class DaftarDokumen {
+class Daftardokumen {
 
 }

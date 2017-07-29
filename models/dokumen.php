@@ -12,14 +12,26 @@ class Dokumen extends Model {
     public function getAllNew() {
         return $this->_db->Exec("select * from dokumen where status = '0' order by tgl desc");
     }
-    public function getAllNewByPengirim($pengirim, $status = 0) {
-        return $this->_db->Exec("select * from dokumen where pengirim = '$pengirim' and status = '$status'");
+    public function getAllNewByPengirim($departemenpengirim, $status = null) {
+        $sql = "select * from dokumen where data4 = $departemenpengirim and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
+        if (isset($status)) {
+            $sql .= " and status = $status";
+        }
+        return $this->_db->Exec($sql);
     }
-    public function getAllNewByPenerima($departemenpenerima) {
-        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S')");
+    public function getAllNewByPenerima($departemenpenerima, $status = null) {
+        $sql = "select * from dokumen where data1 = $departemenpenerima and (status <> '0' and tipe <> '3' and status <> 'x' and status <> 'D' and status <> 'S') ";
+        if (isset($status)) {
+            $sql .= " and status = $status";
+        }
+        return $this->_db->Exec($sql);
     }
-    public function getAllArsipByPenerima($departemenpenerima) {
-        return $this->_db->Exec("select * from dokumen where data1 = $departemenpenerima->iddepartemen and status = 'S' and tipe <> '3'");
+    public function getAllArsipByPenerima($departemenpenerima, $status = null) {
+        $sql = "select * from dokumen where data1 = $departemenpenerima and status = 'S' and tipe <> '3'";
+        if (isset($status)) {
+            $sql .= " and status = $status";
+        }
+        return $this->_db->Exec($sql);
     }
     public function setKategori($kategori) {
         $this->kategori = $kategori;

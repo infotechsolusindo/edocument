@@ -73,7 +73,7 @@ class Dokumen_Controller extends Controller {
         $i = 0;
         $exp = '';
         $list = new Dokumen;
-        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']);
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
@@ -122,7 +122,7 @@ class Dokumen_Controller extends Controller {
         $i = 0;
         $exp = '';
         $list = new Dokumen;
-        $listbydepartemen = $list->getAllArsipByPenerima($_SESSION['departemen']);
+        $listbydepartemen = $list->getAllArsipByPenerima($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
             $exp = '';
             $arrlist = (Object) [];
@@ -169,29 +169,52 @@ class Dokumen_Controller extends Controller {
     }
     public function keluar() {
         $data = [];
+        $i = 0;
+        $exp = '';
         $list = new Dokumen;
-        foreach ($list->getAllNew() as $l) {
-            switch ($l->status) {
-            case 1:$status = "Sending";
-                break;
-            case 2:$status = "Complete";
-                break;
-            default:
-                $status = "-";
-                break;
+        $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']->iddepartemen);
+        foreach ($listbydepartemen as $r) {
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            } else if ($r->status == '1') {
+                $exp = 'unread';
             }
-            $data[] = (Object) [
-                'tgl' => $l->tgl,
-                'jam' => $l->jam,
-                'nodoc' => $l->nodoc,
-                'judul' => $l->judul,
-                'status' => $status,
-                'statuscode' => $l->status,
-            ];
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $data[] = $arrlist;
+            $i++;
         }
         $this->Assign('list', $data);
         $this->getHeaderFooter();
-        $this->Load_View('operator/dokumen');
+        $this->Load_View('operator/dokumen2');
     }
     public function download($id) {
         $dokumen = new Dokumen;
@@ -234,7 +257,7 @@ class Dokumen_Controller extends Controller {
         $i = 0;
         $exp = '';
         $list = new Disposisi;
-        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']);
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
@@ -289,7 +312,7 @@ class Dokumen_Controller extends Controller {
         $i = 0;
         $exp = '';
         $list = new Disposisi;
-        $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']);
+        $listbydepartemen = $list->getAllNewByPengirim($_SESSION['departemen']->iddepartemen);
         foreach ($listbydepartemen as $r) {
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {
@@ -344,7 +367,7 @@ class Dokumen_Controller extends Controller {
         $i = 0;
         $exp = '';
         $list = new Disposisi;
-        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen'], 'S');
+        $listbydepartemen = $list->getAllNewByPenerima($_SESSION['departemen']->iddepartemen, 'S');
         foreach ($listbydepartemen as $r) {
             $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
             if ($date_span->days > 1) {

@@ -12,6 +12,11 @@ class Index_Controller extends Controller {
         $sidebarleft = new View;
         $sidebarleft->Assign('modules', $modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
+
+        $modules2 = new Module(['indikatordokumen', 'daftardokumen']);
+        $middle = new View();
+        $middle->Assign('modules2', $modules2->Render());
+        $this->Assign('middle', $modules2->Render());
     }
 
     private function getHeaderFooter() {
