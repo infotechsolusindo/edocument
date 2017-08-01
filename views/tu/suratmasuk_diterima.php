@@ -59,7 +59,7 @@ $exp = 0;
                       </a>
                     </td>
                     <td class="<?=$list->expstatus;?>">
-                      <?php echo $list->kategori; ?>
+                      <?php echo $data['kategori'][$list->kategori]->kategori; ?>
                     </td>
                     <td class="<?=$list->expstatus;?>">
                       <?php echo $list->judul; ?>

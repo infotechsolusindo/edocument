@@ -14,13 +14,17 @@ class SuratKeluar_Controller extends Controller {
         $sidebarleft = new View;
         $sidebarleft->Assign('modules', $modules->Render());
         $this->Assign('sidebarleft', $sidebarleft->Render('sidebarleft', false));
+        $kategori = new kategoridokumen;
+        $this->Assign('kategori', $kategori->getKategori());
+        $departemen = new Departemen;
+        $this->Assign('listdepartemen', $departemen->getDepartemen());
     }
     public function uploadFile($file) {
         $file_tmp = $file['tmp_name'];
         $filename = date('Ymdhhmmss') . '-' . $file['name'];
-        $fullpath = ROOT . '/data/dokumen/' . $filename;
-        move_uploaded_file($file_tmp, $fullpath);
-        return $fullpath;
+        $fullpath = '/data/dokumen/' . $filename;
+        move_uploaded_file($file_tmp, ROOT . $fullpath);
+        return $filename;
     }
     private function getHeaderFooter() {
         $header = new View();
@@ -34,32 +38,276 @@ class SuratKeluar_Controller extends Controller {
         $footer->Assign('script_bottom', $this->script_bottom);
         $this->Assign('footer', $footer->Render('footer', false));
     }
+
     public function index() {
-        $list = new SuratKeluar;
-        $this->Assign('list', $list->getAllNew());
-        $departemen = new Departemen;
-        $this->Assign('listdepartemen', $departemen->getDepartemen());
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getAllNew();
+        foreach ($rsresult as $r) {
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tgl)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            }
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
         $this->getHeaderFooter();
         $this->Load_View('tu/suratkeluar');
     }
     public function daftarTerkirim() {
-        $list = new SuratKeluar
-        ;
-        $this->Assign('list', $list->getTerkirim());
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $i = 0;
+        $rsresult = $result->getTerkirim();
+        foreach ($rsresult as $r) {
+            $exp = '';
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tglkirim)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            }
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
         $this->getHeaderFooter();
-        $this->Load_View('tu/suratkeluar');
+        $this->Load_View('tu/suratkeluar_terkirim');
     }
     public function daftarDiterima() {
-        $list = new SuratKeluar;
-        $this->Assign('list', $list->getDiterima());
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getDiterima();
+        foreach ($rsresult as $r) {
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = '';
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
         $this->getHeaderFooter();
-        $this->Load_View('tu/suratkeluar');
+        $this->Load_View('tu/suratkeluar_diterima');
+    }
+    public function daftarKembali() {
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getKembali();
+        foreach ($rsresult as $r) {
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = '';
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratkeluar_kembali');
     }
     public function daftarDitolak() {
-        $list = new SuratKeluar;
-        $this->Assign('list', $list->getDitolak());
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getDitolak();
+        foreach ($rsresult as $r) {
+            $date_span = date_diff(date_create(date("Y-m-d")), date_create(date($r->tgl)));
+            if ($date_span->days > 1) {
+                $exp = 'warning1';
+            } else if ($date_span->days > 2) {
+                $exp = 'warning2';
+            }
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = $exp;
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
         $this->getHeaderFooter();
-        $this->Load_View('tu/suratkeluar');
+        $this->Load_View('tu/suratkeluar_ditolak');
+    }
+    public function daftarDihapus() {
+        $result = new SuratKeluar;
+        $arrlist = (Object) [];
+        $list = [];
+        $exp = '';
+        $i = 0;
+        $rsresult = $result->getDihapus();
+        foreach ($rsresult as $r) {
+            $arrlist = (Object) [];
+            $arrlist->iddoc = $r->iddoc;
+            $arrlist->tgl = $r->tgl;
+            $arrlist->jam = $r->jam;
+            $arrlist->tipe = $r->tipe;
+            $arrlist->kategori = $r->kategori;
+            $arrlist->nodoc = $r->nodoc;
+            $arrlist->judul = $r->judul;
+            $arrlist->perihal = $r->perihal;
+            $arrlist->pengirim = $r->pengirim;
+            $arrlist->penerima = $r->penerima;
+            $arrlist->status = $r->status;
+            $arrlist->tglkirim = $r->tglkirim;
+            $arrlist->jamkirim = $r->jamkirim;
+            $arrlist->tglterima = $r->tglterima;
+            $arrlist->jamterima = $r->jamterima;
+            $arrlist->data1 = $r->data1;
+            $arrlist->data2 = $r->data2;
+            $arrlist->data3 = $r->data3;
+            $arrlist->data4 = $r->data4;
+            $arrlist->data5 = $r->data5;
+            $arrlist->data6 = $r->data6;
+            $arrlist->data7 = $r->data7;
+            $arrlist->data8 = $r->data8;
+            $arrlist->data9 = $r->data9;
+            $arrlist->data10 = $r->data10;
+            $arrlist->expstatus = '';
+            $list[] = $arrlist;
+            $i++;
+        }
+        $this->Assign('list', $list);
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratkeluar_dihapus');
     }
     public function tambahSimpan() {
         $error = '';
@@ -69,6 +317,7 @@ class SuratKeluar_Controller extends Controller {
             $this->Assign('errorMessage', $error);
             return $this->index();
         }
+
         $this->Assign('tgl', $_POST['tgl']);
         $this->Assign('jam', $_POST['jam']);
         $this->Assign('kategori', $_POST['kategori']);
@@ -77,7 +326,7 @@ class SuratKeluar_Controller extends Controller {
         $this->Assign('perihal', $_POST['perihal']);
         $this->Assign('pengirim', $_POST['pengirim']);
         $this->Assign('penerima', $_POST['penerima']);
-        $this->Assign('departemenpenerima', $_POST['departemenpenerima']);
+        $this->Assign('departemenpengirim', $_POST['departemenpengirim']);
 
         if ($_POST['kategori'] == '') {
             logs('kategoridokumen kosong');
@@ -87,19 +336,22 @@ class SuratKeluar_Controller extends Controller {
 
         if (!empty($_FILES) && (isset($_FILES['filedokumen']))) {
             $filedokumen = $this->uploadFile($_FILES['filedokumen']);
+            $filename = $_FILES['filedokumen']['name'];
         }
 
         $data = [
             'tgl' => $_POST['tgl'],
             'jam' => $_POST['jam'],
+            'tipe' => 2,
             'kategori' => $_POST['kategori'],
             'nodoc' => $_POST['nodoc'],
             'judul' => $_POST['judul'],
             'perihal' => $_POST['perihal'],
             'pengirim' => $_POST['pengirim'],
             'penerima' => $_POST['penerima'],
-            'data1' => $_POST['departemenpenerima'], // departemen penerima
-            'data2' => $filedokumen,
+            'data4' => $_POST['departemenpengirim'], // departemen penerima
+            'data2' => $filedokumen, //letak file di system
+            'data3' => $filename, //nama asli file dokumen
             'status' => '0',
         ];
         $suratkeluar = new SuratKeluar;
@@ -110,6 +362,10 @@ class SuratKeluar_Controller extends Controller {
             }
         }
 
+        $this->Assign('tambahForm', 1);
+        $this->index();
+    }
+    public function tambah() {
         $this->Assign('tambahForm', 1);
         $this->index();
     }
@@ -125,12 +381,11 @@ class SuratKeluar_Controller extends Controller {
         $this->Assign('perihal', $data->perihal);
         $this->Assign('pengirim', $data->pengirim);
         $this->Assign('penerima', $data->penerima);
-        $list = new SuratKeluar;
-        $this->Assign('list', $list->getAllNew());
-        $departemen = new Departemen;
-        $this->Assign('listdepartemen', $departemen->getDepartemen());
-        $this->getHeaderFooter();
-        $this->Load_View('tu/suratkeluar');
+        $this->Assign('idkategori', $data->kategori);
+        $this->Assign('iddepartemen', $data->data1); // iddepartemen dari penerima
+        $this->Assign('filedokumen', $data->data2);
+
+        $this->index();
     }
     public function ubahSimpan() {
         $error = '';
@@ -163,6 +418,7 @@ class SuratKeluar_Controller extends Controller {
             'pengirim' => $_POST['pengirim'],
             'penerima' => $_POST['penerima'],
             'status' => '0',
+            'data4' => $_POST['departemenpengirim'],
         ];
 
         $suratkeluar = new SuratKeluar;
@@ -175,10 +431,52 @@ class SuratKeluar_Controller extends Controller {
         $this->Assign('ubahForm', 1);
         $this->index();
     }
-    public function hapus($id) {
+    public function hapus($id, $force = false) {
         $suratkeluar = new SuratKeluar;
-        $suratkeluar->hapus($id);
+        $suratkeluar->hapus($id, $force);
         redirect(SITE_ROOT, 'tu/suratkeluar');
     }
-
+    public function pulihkan($id) {
+        $suratkeluar = new SuratKeluar;
+        $suratkeluar->pulihkan($id);
+        redirect(SITE_ROOT, 'tu/suratkeluar');
+    }
+    public function view($id) {
+        $dokumen = new Dokumen;
+        $data = $dokumen->show($id);
+        $this->Assign('dokumen', $data);
+        $this->getHeaderFooter();
+        $this->Load_View('tu/suratkeluar_view');
+    }
+    public function kirim($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '1');
+        redirect(SITE_ROOT . '?url=tu/suratkeluar');
+    }
+    public function terima($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '2');
+        redirect(SITE_ROOT . '?url=tu/suratkeluar');
+    }
+    public function tolak($id) {
+        $dokumen = new Dokumen;
+        $dokumen->setStatus($id, '3');
+        redirect(SITE_ROOT . '?url=tu/suratkeluar');
+    }
+    public function download($id) {
+        $dokumen = new Dokumen;
+        $data = $dokumen->show($id);
+        $file = ROOT . '/data/dokumen/' . $data->data2;
+        if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($data->data3) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        }
+    }
 }

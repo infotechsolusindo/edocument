@@ -15,7 +15,7 @@ $exp = 0;
 </style>
 <section id="main-content">
   <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Surat Masuk :: Terkirim</h3>
+    <h3><i class="fa fa-angle-right"></i> Surat Keluar :: Dihapus</h3>
     <div class="row mt">
       <div class="col-md-12">
         <div class="content-panel">
@@ -24,8 +24,8 @@ $exp = 0;
               <thead>
                 <tr>
                   <th width="10"></th>
-                  <th> Tanggal Masuk</th>
-                  <th> Jam Masuk</th>
+                  <th> Tanggal Keluar</th>
+                  <th> Jam Keluar</th>
                   <th> ID</th>
                   <th> No. Dokumen</th>
                   <th> Kategori</th>
@@ -34,7 +34,7 @@ $exp = 0;
                   <th> Pengirim</th>
                   <th> Penerima</th>
                   <th> Status</th>
-                  <th> Waktu Kirim</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +54,7 @@ $exp = 0;
                       <?php echo $list->iddoc; ?>
                     </td>
                     <td class="<?=$list->expstatus;?>">
-                      <a href="<?php echo '?url=tu/suratmasuk/view/' . $list->iddoc; ?>">
+                      <a href="<?php echo '?url=tu/suratkeluar/view/' . $list->iddoc; ?>">
                         <?php echo $list->nodoc; ?>
                       </a>
                     </td>
@@ -90,7 +90,8 @@ $exp = 0;
     }$list->status;?>
                     </td>
                     <td>
-                      <?php echo $list->tglkirim . ' ' . $list->jamkirim; ?>
+                      <a href="?url=tu/suratkeluar/pulihkan/<?php echo $list->iddoc; ?>" class="btn btn-sm btn-primary" ><i class="fa fa-recycle"></i> Dipulihkan</a>
+                      <a href="?url=tu/suratkeluar/hapus/<?php echo $list->iddoc; ?>/true" class="btn btn-sm btn-danger" ><i class="fa fa-recycle"></i> Dimusnahkan</a>
                     </td>
                   </tr>
                 <?php }?>
@@ -101,10 +102,10 @@ $exp = 0;
           <footer class="site-footer">
             <dir class="col-md-3 hidden-sm hidden-xs"></dir>
             <div class="col-md-6 col-xs-12 text-center">
-              <a href="?url=tu/suratmasuk" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
-              <a href="?url=tu/suratmasuk/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
-              <a href="?url=tu/suratmasuk/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
-              <a href="?url=tu/suratmasuk/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
+              <a href="?url=tu/suratkeluar" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Belum Diproses</a>
+              <a href="?url=tu/suratkeluar/daftarTerkirim" class="btn btn-sm btn-warning" ><i class="fa fa-file"></i> Terkirim</a>
+              <a href="?url=tu/suratkeluar/daftarDiterima" class="btn btn-sm btn-success" ><i class="fa fa-file"></i> Diterima</a>
+              <a href="?url=tu/suratkeluar/daftarDitolak" class="btn btn-sm btn-danger" ><i class="fa fa-file"></i> Ditolak</a>
           </footer>
         </div>
         <!-- /content-panel -->

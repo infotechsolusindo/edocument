@@ -59,7 +59,23 @@
                         </a>
                       </td>
                       <td class="<?=$list->expstatus;?>">
-                        <?php echo $list->kategori; ?>
+                        <?php
+switch ($list->kategori) {
+    case '10':
+        echo "Surat Tugas";
+        break;
+    case '11':
+        echo "Surat Undangan";
+        break;
+    case '12':
+        echo "Surat Keputusan";
+        break;
+    default:
+        $kategori = new KategoriDokumen;
+        echo $kategori->show($list->kategori)->kategori;
+        break;
+    }
+    ?>
                       </td>
                       <td class="<?=$list->expstatus;?>">
                         <?php echo $list->judul; ?>
