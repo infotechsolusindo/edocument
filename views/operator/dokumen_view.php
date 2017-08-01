@@ -26,7 +26,7 @@
                   <tr><td>Judul</td><td>: <?=$dok->judul;?></td></tr>
                   <tr><td>Perihal</td><td>: <?=$dok->perihal;?></td></tr>
                   <tr><td>Pengirim</td><td>: <?=$dok->pengirim;?></td></tr>
-                  <tr><td>Penerima</td><td>: <?=$dok->penerima;?> <span class="badge badge-primary">Departemen: <?=$dok->departemen;?></span></td></tr>
+                  <tr><td>Tujuan</td><td>: <?=$dok->penerima;?> <span class="badge badge-primary">Departemen: <?=$dok->departemen;?></span></td></tr>
                   <tr><td>Status</td><td>: <?=$dok->status;?> (0 = Belum Terkirim, 1=Terkirim, 2=DiTerima, 3=Ditolak)</td></tr>
                   <tr><td>Tgl Kirim</td><td>: <?=$dok->tglkirim;?></td></tr>
                   <tr><td>Jam Kirim</td><td>: <?=$dok->jamkirim;?></td></tr>

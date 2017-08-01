@@ -35,7 +35,7 @@ $exp = 0;
                   <th> Judul</th>
                   <th> Perihal</th>
                   <th> Pengirim</th>
-                  <th> Penerima</th>
+                  <th> Tujuan</th>
                   <th> Waktu Kirim</th>
                   <th> Status</th>
                 </tr>
@@ -119,7 +119,7 @@ $exp = 0;
                   <th> Judul</th>
                   <th> Perihal</th>
                   <th> Pengirim</th>
-                  <th> Penerima</th>
+                  <th> Tujuan</th>
                   <th> Waktu Kirim</th>
                   <th> Status</th>
                 </tr>

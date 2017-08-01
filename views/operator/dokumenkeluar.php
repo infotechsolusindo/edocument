@@ -32,7 +32,7 @@
                       <th> Judul</th>
                       <th> Perihal</th>
                       <th> Pengirim</th>
-                      <th> Penerima</th>
+                      <th> Tujuan</th>
                       <!-- <th> Status</th> -->
                       <th></th>
                     </tr>
