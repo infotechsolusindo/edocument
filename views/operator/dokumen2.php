@@ -124,6 +124,9 @@ switch ($list->kategori) {
                       <!-- <a href="?url=dokumen/tolak" class="btn btn-sm btn-danger "><i class="fa fa-times-circle-o"></i> Tolak</a> -->
                       <!-- <a href="#" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Tambah</a> -->
                       <a href="?url=operator/dokumen/keluar" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Daftar Dokumen Keluar</a>
+                      <a href="?url=operator/surattugas" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Buat Surat Tugas</a>
+                      <a href="?url=operator/suratundangan" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Buat Surat Undangan</a>
+                      <a href="?url=operator/suratkeputusan" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Buat Surat Keputusan</a>
                       <!-- <a href="?url=operator/dokumen/keluar_arsip" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> Daftar Arsip</a> -->
                       <!-- <button id="btntambah" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Tambah</button> -->
                       <!-- <a href="?url=dokumen/ubah" class="btn btn-sm btn-success "><i class="fa fa-pencil"></i> Ubah</a> -->

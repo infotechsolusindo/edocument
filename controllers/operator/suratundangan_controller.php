@@ -1,5 +1,5 @@
 <?php
-class Surattugas_Controller extends Controller {
+class Suratundangan_Controller extends Controller {
     private $style;
     private $script_top;
     private $script_bottom;
@@ -116,7 +116,7 @@ class Surattugas_Controller extends Controller {
                     ];
                     $dokumen->tambah($data);
                 }
-                redirect(SITE_ROOT, 'operator/suratundangan');
+                redirect(SITE_ROOT, 'operator/dokumen/keluar');
             }
         }
         $this->index();

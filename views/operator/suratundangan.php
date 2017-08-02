@@ -2,7 +2,7 @@
 <?php echo $data['sidebarleft']; ?>
 <section id="main-content">
   <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Surat Keputusan</h3>
+    <h3><i class="fa fa-angle-right"></i> Surat Undangan</h3>
     <div class="row mt">
       <div class="col-md-12">
         <div class="content-panel">
