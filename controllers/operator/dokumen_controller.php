@@ -165,6 +165,22 @@ class Dokumen_Controller extends Controller {
         $data = $dokumen->show($id);
         $dokumen->setStatus($id, '2');
         $this->Assign('dokumen', $data);
+        if (!$data->nmkategori) {
+            switch ($data->kategori) {
+            case '10':
+                $data->nmkategori = 'Surat Tugas';
+                break;
+            case '11':
+                $data->nmkategori = 'Surat Undangan';
+                break;
+            case '12':
+                $data->nmkategori = 'Surat Kepputusan';
+                break;
+            default:
+                $data->nmkategori = 'Jenis Surat Lain';
+                break;
+            }
+        }
         $this->getHeaderFooter();
         $this->Load_View('operator/dokumen_view');
     }
