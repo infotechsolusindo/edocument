@@ -50,6 +50,7 @@ class User_Controller extends Controller {
                 'email' => $l->getemail(),
                 // 'last' => $l->getlast_login(),
                 'wewenang' => $l->getWewenang()->gname,
+                'departemen' => $l->getDepartemen($l->getuserid())->name,
                 'status' => $status,
                 'statuscode' => $l->getstatus(),
             ];

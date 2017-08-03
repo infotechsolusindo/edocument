@@ -14,6 +14,7 @@
                 <th width="10"></th>
                 <th> ID.User</th>
                 <th> Nama User</th>
+                <th> Departemen</th>
                 <th> Wewenang</th>
                 <th> Email</th>
                 <th> Status</th>
@@ -34,6 +35,9 @@ foreach ($data['list'] as $list) {
                   </td>
                   <td>
                     <?php echo $list->name; ?>
+                  </td>
+                  <td>
+                    <?php echo $list->departemen; ?>
                   </td>
                   <td>
                     <?php echo $list->wewenang; ?>
